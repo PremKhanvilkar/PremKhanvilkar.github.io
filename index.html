@@ -12,8 +12,8 @@
     <meta property="og:description" content="Biomedical Engineering student at UBC seeking Winter 2027 co-op. Specializing in medical hardware, biomechanics, and clinical solutions.">
     <meta property="og:type" content="website">
 
-    <!-- Favicon: ink square, accent square -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><rect width=%2232%22 height=%2232%22 fill=%22%230F0F11%22/><rect x=%226%22 y=%226%22 width=%2212%22 height=%2212%22 fill=%22%23FF4D00%22/></svg>">
+    <!-- Favicon: ink square, paper square -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><rect width=%2232%22 height=%2232%22 fill=%22%230F0F11%22/><rect x=%226%22 y=%226%22 width=%2212%22 height=%2212%22 fill=%22%23F9F9FB%22/></svg>">
 
     <!-- Fonts: Helvetica Neue / Arial (system) + IBM Plex Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,7 +26,7 @@
         tailwind.config = {
             theme: {
                 extend: {
-                    colors: { paper: '#F9F9FB', ink: '#0F0F11', accent: '#FF4D00' },
+                    colors: { paper: '#F9F9FB', ink: '#0F0F11' },
                     fontFamily: {
                         sans: ['"Helvetica Neue"', 'Helvetica', 'Arial', 'system-ui', 'sans-serif'],
                         mono: ['"IBM Plex Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace']
@@ -39,11 +39,11 @@
     </script>
 
     <style>
-        :root { --ink:#0F0F11; --paper:#F9F9FB; --accent:#FF4D00; --rule:#E5E5E5; }
+        :root { --ink:#0F0F11; --paper:#F9F9FB; --rule:#E5E5E5; }
         html, body { background: var(--paper); color: var(--ink); }
         body { font-feature-settings: "tnum" 1; }
-        ::selection { background: var(--accent); color: var(--ink); }
-        :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 0; }
+        ::selection { background: var(--ink); color: var(--paper); }
+        :focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 0; }
 
         /* Frame: one container width, hairline side rules on wide screens */
         .frame { max-width: 1280px; margin: 0 auto; }
@@ -57,34 +57,23 @@
         .mute { color: rgba(15,15,17,.62); }
         .body { color: rgba(15,15,17,.82); }
 
-        /* Accent square (status marker) */
-        .sq { display: inline-block; width: 8px; height: 8px; background: var(--accent); flex: none; }
+        /* Status square */
+        .sq { display: inline-block; width: 8px; height: 8px; background: var(--ink); flex: none; }
 
-        /* Hover: crisp accent fill, ink text, instant */
-        .hov:hover { background: var(--accent); color: var(--ink); }
-        .hov:hover .mute, .hov:hover .body { color: var(--ink); }
-        .hov:hover, .hov:hover * { border-color: rgba(15,15,17,.3); }
-        .hov:hover .sq { background: var(--ink); }
-        .hov:hover .hl { box-shadow: inset 0 3px 0 var(--ink); }
+        /* Hover: crisp ink fill, paper text, instant */
 
         /* Link: underline expands 0 -> 100% */
         .lnk {
             font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
             display: inline-block; padding-bottom: 3px; color: inherit;
             background:
-                linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat,
-                linear-gradient(rgba(15,15,17,.3), rgba(15,15,17,.3)) 0 100% / 100% 1px no-repeat;
-            transition: background-size 80ms linear;
+                linear-gradient(currentColor, currentColor) 0 100% / 100% 1px no-repeat;
         }
-        .lnk:hover { background-size: 100% 1px, 100% 1px; }
         .lnk-xl {
             display: inline-block; padding-bottom: 6px;
             background:
-                linear-gradient(var(--accent), var(--accent)) 0 100% / 0 6px no-repeat,
                 linear-gradient(var(--ink), var(--ink)) 0 100% / 100% 1px no-repeat;
-            transition: background-size 80ms linear;
         }
-        .lnk-xl:hover { background-size: 100% 6px, 100% 1px; }
 
         /* Buttons: hard edges */
         .btn {
@@ -92,22 +81,18 @@
             border: 1px solid var(--ink); font-family: "IBM Plex Mono", ui-monospace, monospace;
             font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink);
         }
-        .btn:hover { background: var(--accent); }
         .btn-solid { background: var(--ink); color: var(--paper); }
-        .btn-solid:hover { background: var(--accent); color: var(--ink); }
 
         /* Nav */
         .navlink {
             display: flex; align-items: center; padding: 0 1rem; border-left: 1px solid var(--rule);
             font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
         }
-        .navlink:hover { background: var(--accent); }
-        .navlink[aria-current="true"] { box-shadow: inset 0 -3px 0 var(--accent); }
+        .navlink[aria-current="true"] { box-shadow: inset 0 -3px 0 var(--ink); }
         .mlink {
             display: block; padding: 1rem 1.5rem; border-bottom: 1px solid var(--rule);
             font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase;
         }
-        .mlink:hover { background: var(--accent); }
 
         /* Dash list (replaces disc bullets) */
         .dash { list-style: none; padding: 0; margin: 0; }
@@ -118,7 +103,6 @@
         /* Slash list for skills */
         .slash { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; row-gap: .25rem; }
         .slash li + li::before { content: "/"; margin: 0 .75rem; color: rgba(15,15,17,.35); }
-        .hov:hover .slash li + li::before { color: var(--ink); }
 
         /* Spec table (hero) */
         .spec { display: grid; grid-template-columns: repeat(2, 1fr); border-top: 1px solid var(--rule); }
@@ -140,7 +124,7 @@
         .strip > div:nth-child(2n) { border-right: 0; }
         .strip .v { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 1.5rem; font-weight: 600; letter-spacing: -.02em; line-height: 1.1; }
         .strip .k { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; line-height: 1.4; margin-top: .5rem; }
-        .strip .hl { box-shadow: inset 0 3px 0 var(--accent); }
+        .strip .hl { box-shadow: inset 0 3px 0 var(--ink); }
         @media (min-width: 768px) {
             .strip { grid-template-columns: repeat(4, 1fr); }
             .strip > div:nth-child(-n+2) { border-bottom: 0; }
@@ -148,7 +132,6 @@
             .strip > div:last-child { border-right: 0; }
         }
 
-        @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
     </style>
 </head>
 <body class="font-sans antialiased text-base leading-normal">
@@ -156,7 +139,7 @@
     <!-- Navigation -->
     <nav class="sticky top-0 z-50 bg-paper border-b">
         <div class="frame relative flex items-stretch justify-between h-14">
-            <a href="#top" class="flex items-center px-6 font-bold text-lg tracking-[-0.04em] border-r hover:bg-accent">PK</a>
+            <a href="#top" class="flex items-center px-6 font-bold text-lg tracking-[-0.04em] border-r">PK</a>
 
             <div class="hidden md:flex items-stretch ml-auto">
                 <a href="#about" data-nav class="navlink">About</a>
@@ -171,7 +154,7 @@
                 <span class="sq"></span> Open / W2027 Co-op
             </div>
 
-            <button id="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu" class="md:hidden px-6 border-l label hover:bg-accent">Menu</button>
+            <button id="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu" class="md:hidden px-6 border-l label">Menu</button>
         </div>
 
         <!-- Mobile menu -->
@@ -209,7 +192,6 @@
                 <!-- Headshot -->
                 <figure class="md:col-span-4 order-first md:order-last border-b md:border-b-0">
                     <img src="headshot.jpg" alt="Prem Khanvilkar" class="block w-full aspect-square object-cover object-top" onerror="fb(this)">
-                    <figcaption class="label mute px-6 py-3 border-t">Fig. 00 — Portrait</figcaption>
                 </figure>
             </div>
 
@@ -263,7 +245,6 @@
                         <div class="aspect-square overflow-hidden border">
                             <img src="about-photo.png" alt="Prem Khanvilkar smiling" class="w-full h-full object-cover scale-[1.35] origin-[50%_38%]" onerror="fb(this)">
                         </div>
-                        <figcaption class="label mute mt-3">Fig. 01 — Prem Khanvilkar</figcaption>
                     </figure>
                 </div>
 
@@ -289,7 +270,7 @@
             </div>
 
             <div class="md:col-span-9">
-                <div class="hov grid md:grid-cols-12 border-b">
+                <div class="grid md:grid-cols-12 border-b">
                     <p class="md:col-span-3 label p-6 md:border-r">Programming</p>
                     <ul class="md:col-span-9 slash p-6 font-mono text-sm">
                         <li>Python</li>
@@ -298,7 +279,7 @@
                         <li>C &amp; C#</li>
                     </ul>
                 </div>
-                <div class="hov grid md:grid-cols-12 border-b">
+                <div class="grid md:grid-cols-12 border-b">
                     <p class="md:col-span-3 label p-6 md:border-r">Hardware &amp; Lab</p>
                     <ul class="md:col-span-9 slash p-6 font-mono text-sm">
                         <li>Circuit Design &amp; Analysis</li>
@@ -309,7 +290,7 @@
                         <li>BioRadio Systems</li>
                     </ul>
                 </div>
-                <div class="hov grid md:grid-cols-12">
+                <div class="grid md:grid-cols-12">
                     <p class="md:col-span-3 label p-6 md:border-r">Engineering Software</p>
                     <ul class="md:col-span-9 slash p-6 font-mono text-sm">
                         <li>SolidWorks</li>
@@ -335,7 +316,7 @@
 
             <div class="md:col-span-9">
                 <!-- UBC Bionics -->
-                <article class="hov grid md:grid-cols-12 border-b">
+                <article class="grid md:grid-cols-12 border-b">
                     <div class="md:col-span-2 p-6 md:border-r">
                         <p class="label flex items-start gap-2"><span class="sq mt-[3px]"></span> Sep 2026 — Present</p>
                     </div>
@@ -352,7 +333,7 @@
                 </article>
 
                 <!-- BIT -->
-                <article class="hov grid md:grid-cols-12 border-b">
+                <article class="grid md:grid-cols-12 border-b">
                     <div class="md:col-span-2 p-6 md:border-r">
                         <p class="label flex items-start gap-2"><span class="sq mt-[3px]"></span> Oct 2025 — Present</p>
                     </div>
@@ -371,7 +352,7 @@
                 </article>
 
                 <!-- The Fourth Perspective -->
-                <article class="hov grid md:grid-cols-12 border-b">
+                <article class="grid md:grid-cols-12 border-b">
                     <div class="md:col-span-2 p-6 md:border-r">
                         <p class="label flex items-start gap-2"><span class="sq mt-[3px]"></span> Mar 2025 — Present</p>
                     </div>
@@ -389,7 +370,7 @@
                 </article>
 
                 <!-- Bifrost -->
-                <article class="hov grid md:grid-cols-12">
+                <article class="grid md:grid-cols-12">
                     <div class="md:col-span-2 p-6 md:border-r">
                         <p class="label">Mar 2023 — Nov 2023</p>
                     </div>
@@ -419,15 +400,14 @@
                     <h2 class="mt-2 text-3xl font-bold tracking-[-0.03em]">Projects</h2>
                 </div>
                 <div class="md:col-span-9 p-6 flex items-end">
-                    <p class="label mute">Research &amp; Technical Projects — 07 Entries</p>
+                    <p class="label mute">Research &amp; Technical Projects</p>
                 </div>
             </div>
 
             <!-- P-01 MURC -->
-            <article class="hov border-b">
+            <article class="border-b">
                 <div class="grid md:grid-cols-12">
                     <div class="md:col-span-3 p-6 md:border-r flex flex-col gap-3">
-                        <p class="label">P-01</p>
                         <p class="label mute">MURC 2026</p>
                         <p class="label mute">T2D / Quercetin / Human Islets</p>
                     </div>
@@ -444,10 +424,7 @@
                                 <p class="mt-4 text-[15px] leading-relaxed font-medium">Our findings contribute to the limited pool of human-donor research and help shape the direction of future T2D studies.</p>
                             </div>
                             <figure class="lg:col-span-4 p-6 md:p-8 border-t lg:border-t-0">
-                                <div class="aspect-[4/3] overflow-hidden border bg-paper">
-                                    <img src="1774900125537.jpeg" alt="MURC 2026 Presentation" class="w-full h-full object-cover" onerror="fb(this)">
-                                </div>
-                                <figcaption class="label mute mt-3">Fig. P-01 — MURC 2026 presentation</figcaption>
+                                <img src="1774900125537.jpeg" alt="MURC 2026 Presentation" class="block w-full h-auto border" onerror="fb(this)">
                             </figure>
                         </div>
                         <div class="strip">
@@ -461,10 +438,9 @@
             </article>
 
             <!-- P-02 Docking -->
-            <article class="hov border-b">
+            <article class="border-b">
                 <div class="grid md:grid-cols-12">
                     <div class="md:col-span-3 p-6 md:border-r flex flex-col gap-3">
-                        <p class="label">P-02</p>
                         <p class="label mute">Jan 2026 — Apr 2026</p>
                         <p class="label mute">UBC, Vancouver, Canada</p>
                         <p class="label mute">Molecular Docking / SwissDock / PDB 1LI4</p>
@@ -480,7 +456,6 @@
                                 <div class="aspect-[4/3] overflow-hidden border bg-paper">
                                     <img src="Screenshot 2026-09-28 133708.png" alt="Molecular Docking Paper" class="w-full h-full object-cover object-top" onerror="fb(this)">
                                 </div>
-                                <figcaption class="label mute mt-3">Fig. P-02 — Docking study, first page</figcaption>
                             </figure>
                         </div>
                         <div class="strip">
@@ -494,10 +469,9 @@
             </article>
 
             <!-- P-03 EMG Bicep -->
-            <article class="hov border-b">
+            <article class="border-b">
                 <div class="grid md:grid-cols-12">
                     <div class="md:col-span-3 p-6 md:border-r flex flex-col gap-3">
-                        <p class="label">P-03</p>
                         <p class="label mute">Nov 2025</p>
                         <p class="label mute">UBC, Vancouver, Canada</p>
                         <p class="label mute">MATLAB / sEMG / Biceps Brachii</p>
@@ -513,7 +487,6 @@
                                 <div class="aspect-[4/3] overflow-hidden border bg-paper">
                                     <img src="image_ad41cb.jpg" alt="EMG Analysis Front Page" class="w-full h-full object-cover object-top" onerror="fb(this)">
                                 </div>
-                                <figcaption class="label mute mt-3">Fig. P-03 — EMG analysis, front page</figcaption>
                             </figure>
                         </div>
                         <div class="strip">
@@ -527,10 +500,9 @@
             </article>
 
             <!-- P-04 FEA -->
-            <article class="hov border-b">
+            <article class="border-b">
                 <div class="grid md:grid-cols-12">
                     <div class="md:col-span-3 p-6 md:border-r flex flex-col gap-3">
-                        <p class="label">P-04</p>
                         <p class="label mute">Oct 2025</p>
                         <p class="label mute">UBC, Vancouver, Canada</p>
                         <p class="label mute">SolidWorks / FEA / Ti-6Al-4V</p>
@@ -546,7 +518,6 @@
                                 <div class="aspect-[4/3] overflow-hidden border bg-paper">
                                     <img src="Screenshot 2026-09-28 122435.png" alt="SolidWorks Model" class="w-full h-full object-cover object-top" onerror="fb(this)">
                                 </div>
-                                <figcaption class="label mute mt-3">Fig. P-04 — SolidWorks model</figcaption>
                             </figure>
                         </div>
                         <div class="strip">
@@ -560,10 +531,9 @@
             </article>
 
             <!-- P-05 Grip -->
-            <article class="hov border-b">
+            <article class="border-b">
                 <div class="grid md:grid-cols-12">
                     <div class="md:col-span-3 p-6 md:border-r flex flex-col gap-3">
-                        <p class="label">P-05</p>
                         <p class="label mute">Nov 2025</p>
                         <p class="label mute">UBC, Vancouver, Canada</p>
                         <p class="label mute">MATLAB / sEMG / 2000 Hz</p>
@@ -579,7 +549,6 @@
                                 <div class="aspect-[4/3] overflow-hidden border bg-paper">
                                     <img src="image_0e6a81.jpg" alt="BioRadio Setup" class="w-full h-full object-cover object-top" onerror="fb(this)">
                                 </div>
-                                <figcaption class="label mute mt-3">Fig. P-05 — BioRadio setup</figcaption>
                             </figure>
                         </div>
                         <div class="strip">
@@ -593,10 +562,9 @@
             </article>
 
             <!-- P-06 Kinematics -->
-            <article class="hov border-b">
+            <article class="border-b">
                 <div class="grid md:grid-cols-12">
                     <div class="md:col-span-3 p-6 md:border-r flex flex-col gap-3">
-                        <p class="label">P-06</p>
                         <p class="label mute">Nov 2025</p>
                         <p class="label mute">UBC, Vancouver, Canada</p>
                         <p class="label mute">Motion Capture / Nuitrack / FFT</p>
@@ -612,7 +580,6 @@
                                 <div class="aspect-[4/3] overflow-hidden border bg-paper">
                                     <img src="Screenshot 2026-09-28 122854.png" alt="Motion Capture Analysis" class="w-full h-full object-cover object-top" onerror="fb(this)">
                                 </div>
-                                <figcaption class="label mute mt-3">Fig. P-06 — Motion capture analysis</figcaption>
                             </figure>
                         </div>
                         <div class="strip">
@@ -626,10 +593,9 @@
             </article>
 
             <!-- P-07 Quercetin review -->
-            <article class="hov">
+            <article>
                 <div class="grid md:grid-cols-12">
                     <div class="md:col-span-3 p-6 md:border-r flex flex-col gap-3">
-                        <p class="label">P-07</p>
                         <p class="label mute">BMEG 210 Term Project</p>
                         <p class="label mute">UBC, Vancouver, Canada</p>
                         <p class="label mute">Literature Review / Drug Delivery / T2D</p>
@@ -645,7 +611,6 @@
                                 <div class="aspect-[4/3] overflow-hidden border bg-paper">
                                     <img src="Screenshot 2026-09-28 142655.png" alt="Quercetin Literature Review" class="w-full h-full object-cover object-top" onerror="fb(this)">
                                 </div>
-                                <figcaption class="label mute mt-3">Fig. P-07 — Literature review, first page</figcaption>
                             </figure>
                         </div>
                         <div class="strip">
@@ -676,14 +641,14 @@
                 <div class="lg:col-span-4">
                     <p class="label mute px-6 py-4 border-b">A / Awards &amp; Leadership</p>
 
-                    <div class="hov p-6 border-b">
+                    <div class="p-6 border-b">
                         <p class="label mute">Fall 2025 &amp; Winter 2026</p>
                         <h3 class="mt-2 text-lg font-bold tracking-tight leading-tight">Dean's List</h3>
                         <p class="text-sm font-medium mt-1">University of British Columbia</p>
                         <p class="mt-2 text-sm leading-relaxed body">Awarded for maintaining exceptional academic standing.</p>
                     </div>
 
-                    <div class="hov p-6 border-b">
+                    <div class="p-6 border-b">
                         <p class="label mute">Apr 2026</p>
                         <h3 class="mt-2 text-lg font-bold tracking-tight leading-tight">Certificate of Excellence</h3>
                         <p class="text-sm font-medium mt-1">UBC BEST BIT</p>
@@ -691,18 +656,18 @@
                         <p class="mt-4"><a href="Certificate_excellence_BESTBIT.jpeg" target="_blank" rel="noopener" class="lnk">View Certificate · IMG ↗</a></p>
                     </div>
 
-                    <div class="hov p-6 border-b">
+                    <div class="p-6 border-b">
                         <p class="label mute">Nov 2022</p>
                         <h3 class="mt-2 text-lg font-bold tracking-tight leading-tight">Gold Medalist</h3>
                         <p class="text-sm font-medium mt-1">WAKO International Kickboxing</p>
                         <figure class="mt-4">
                             <img src="wako-gold.jpg" alt="Gold medal win at the WAKO international kickboxing championship" class="block w-40 aspect-square object-cover border" onerror="fb(this)">
-                            <figcaption class="label mute mt-2">Fig. A-01 — WAKO gold</figcaption>
+                            <figcaption class="label mute mt-2">WAKO gold</figcaption>
                         </figure>
                         <p class="mt-4"><a href="Screenshot 2026-09-28 151442.jpg" target="_blank" rel="noopener" class="lnk">View Certificate · IMG ↗</a></p>
                     </div>
 
-                    <div class="hov p-6 border-b">
+                    <div class="p-6 border-b">
                         <p class="label mute">Jun 2023 — Nov 2023</p>
                         <h3 class="mt-2 text-lg font-bold tracking-tight leading-tight">Co-Founder</h3>
                         <p class="text-sm font-medium mt-1">The Helping Paw</p>
@@ -710,7 +675,7 @@
                         <p class="mt-4"><a href="image_1c1d24.jpg" target="_blank" rel="noopener" class="lnk">View Certificate · IMG ↗</a></p>
                     </div>
 
-                    <div class="hov p-6 border-b lg:border-b-0">
+                    <div class="p-6 border-b lg:border-b-0">
                         <p class="label mute">5 Months</p>
                         <h3 class="mt-2 text-lg font-bold tracking-tight leading-tight">Volunteer</h3>
                         <p class="text-sm font-medium mt-1">Careiyat Foundation</p>
@@ -723,34 +688,34 @@
                 <div class="lg:col-span-3 lg:border-l">
                     <p class="label mute px-6 py-4 border-b">B / Certifications</p>
 
-                    <div class="hov p-6 border-b">
+                    <div class="p-6 border-b">
                         <p class="label mute">Expected Dec 2026</p>
                         <h3 class="mt-2 text-base font-bold tracking-tight">Altium PCB Design</h3>
                         <p class="text-sm mt-1 body">Altium Education</p>
                     </div>
 
-                    <div class="hov p-6 border-b">
+                    <div class="p-6 border-b">
                         <p class="label mute">Nov 2025</p>
                         <h3 class="mt-2 text-base font-bold tracking-tight">Chemical Safety</h3>
                         <p class="text-sm mt-1 body">UBC</p>
                         <p class="mt-3"><a href="chemical-safety-prem-khanvilkar.pdf" target="_blank" rel="noopener" class="lnk">View Certificate · PDF ↗</a></p>
                     </div>
 
-                    <div class="hov p-6 border-b">
+                    <div class="p-6 border-b">
                         <p class="label mute">Dec 2025</p>
                         <h3 class="mt-2 text-base font-bold tracking-tight">Biosafety</h3>
                         <p class="text-sm mt-1 body">UBC</p>
                         <p class="mt-3"><a href="biosafety-for-study-team-members-prem-khanvilkar.pdf" target="_blank" rel="noopener" class="lnk">View Certificate · PDF ↗</a></p>
                     </div>
 
-                    <div class="hov p-6 border-b">
+                    <div class="p-6 border-b">
                         <p class="label mute">Sep 2026</p>
                         <h3 class="mt-2 text-base font-bold tracking-tight">Design Team Safety</h3>
                         <p class="text-sm mt-1 body">UBC</p>
                         <p class="mt-3"><a href="Engineering_Design_T_Prem_Khanvilkar (4).pdf" target="_blank" rel="noopener" class="lnk">View Certificate · PDF ↗</a></p>
                     </div>
 
-                    <div class="hov p-6 border-b lg:border-b-0">
+                    <div class="p-6 border-b lg:border-b-0">
                         <p class="label mute">Oct 2025</p>
                         <h3 class="mt-2 text-base font-bold tracking-tight">WHMIS</h3>
                         <p class="text-sm mt-1 body">Workplace Hazardous Materials Information System</p>
@@ -762,16 +727,16 @@
                 <div class="lg:col-span-2 lg:border-l border-t lg:border-t-0">
                     <p class="label mute px-6 py-4 border-b">C / Interests</p>
                     <ul class="text-sm font-medium">
-                        <li class="hov px-6 py-4 border-b">Kickboxing &amp; Muay Thai</li>
-                        <li class="hov px-6 py-4 border-b">Weightlifting &amp; Running</li>
-                        <li class="hov px-6 py-4 border-b">Tennis</li>
-                        <li class="hov px-6 py-4 border-b">Healthcare Robotics</li>
-                        <li class="hov px-6 py-4 border-b">3D Printing &amp; Rapid Prototyping</li>
-                        <li class="hov px-6 py-4 border-b">Bio-inspired Design</li>
-                        <li class="hov px-6 py-4 border-b">Video Editing</li>
-                        <li class="hov px-6 py-4">
+                        <li class="px-6 py-4 border-b">Kickboxing &amp; Muay Thai</li>
+                        <li class="px-6 py-4 border-b">Weightlifting &amp; Running</li>
+                        <li class="px-6 py-4 border-b">Tennis</li>
+                        <li class="px-6 py-4 border-b">Healthcare Robotics</li>
+                        <li class="px-6 py-4 border-b">3D Printing &amp; Rapid Prototyping</li>
+                        <li class="px-6 py-4 border-b">Bio-inspired Design</li>
+                        <li class="px-6 py-4 border-b">Video Editing</li>
+                        <li class="px-6 py-4">
                             Content Creation
-                            <a href="https://www.youtube.com/@the.4th.perspective" target="_blank" rel="noopener" class="lnk ml-2" title="View YouTube Channel">YouTube ↗</a>
+                            <a href="https://www.youtube.com/@the.4th.perspective" target="_blank" rel="noopener" class="lnk ml-2" aria-label="View YouTube Channel">YouTube ↗</a>
                         </li>
                     </ul>
                 </div>
