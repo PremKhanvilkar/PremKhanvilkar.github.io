@@ -1,153 +1,319 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <title>Prem Khanvilkar | Biomedical Engineering Portfolio</title>
     <meta name="description" content="Portfolio of Prem Khanvilkar, a Biomedical Engineering student at UBC specializing in medical hardware, biosignal processing, and healthcare robotics.">
-    
+
     <!-- Open Graph for LinkedIn / Social Previews -->
     <meta property="og:title" content="Prem Khanvilkar | Biomedical Engineering Portfolio">
     <meta property="og:description" content="Biomedical Engineering student at UBC seeking Winter 2027 co-op. Specializing in medical hardware, biomechanics, and clinical solutions.">
     <meta property="og:type" content="website">
-    
-    <!-- Favicon -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
+
+    <!-- Favicon: ink square, accent square -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><rect width=%2232%22 height=%2232%22 fill=%22%230F0F11%22/><rect x=%226%22 y=%226%22 width=%2212%22 height=%2212%22 fill=%22%23FF4D00%22/></svg>">
+
+    <!-- Fonts: Helvetica Neue / Arial (system) + IBM Plex Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { paper: '#F9F9FB', ink: '#0F0F11', accent: '#FF4D00' },
+                    fontFamily: {
+                        sans: ['"Helvetica Neue"', 'Helvetica', 'Arial', 'system-ui', 'sans-serif'],
+                        mono: ['"IBM Plex Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace']
+                    },
+                    borderColor: { DEFAULT: '#E5E5E5' },
+                    borderRadius: { DEFAULT: '0px', sm: '2px', md: '0px', lg: '0px', xl: '0px', '2xl': '0px', full: '0px' }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root { --ink:#0F0F11; --paper:#F9F9FB; --accent:#FF4D00; --rule:#E5E5E5; }
+        html, body { background: var(--paper); color: var(--ink); }
+        body { font-feature-settings: "tnum" 1; }
+        ::selection { background: var(--accent); color: var(--ink); }
+        :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 0; }
+
+        /* Frame: one container width, hairline side rules on wide screens */
+        .frame { max-width: 1280px; margin: 0 auto; }
+        @media (min-width: 1281px) {
+            .frame { border-left: 1px solid var(--rule); border-right: 1px solid var(--rule); }
+            .frame-dark { border-color: #27272a !important; }
+        }
+
+        /* Type roles */
+        .label { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; line-height: 1.5; }
+        .mute { color: rgba(15,15,17,.62); }
+        .body { color: rgba(15,15,17,.82); }
+
+        /* Accent square (status marker) */
+        .sq { display: inline-block; width: 8px; height: 8px; background: var(--accent); flex: none; }
+
+        /* Hover: crisp accent fill, ink text, instant */
+        .hov:hover { background: var(--accent); color: var(--ink); }
+        .hov:hover .mute, .hov:hover .body { color: var(--ink); }
+        .hov:hover, .hov:hover * { border-color: rgba(15,15,17,.3); }
+        .hov:hover .sq { background: var(--ink); }
+        .hov:hover .hl { box-shadow: inset 0 3px 0 var(--ink); }
+
+        /* Link: underline expands 0 -> 100% */
+        .lnk {
+            font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+            display: inline-block; padding-bottom: 3px; color: inherit;
+            background:
+                linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat,
+                linear-gradient(rgba(15,15,17,.3), rgba(15,15,17,.3)) 0 100% / 100% 1px no-repeat;
+            transition: background-size 80ms linear;
+        }
+        .lnk:hover { background-size: 100% 1px, 100% 1px; }
+        .lnk-xl {
+            display: inline-block; padding-bottom: 6px;
+            background:
+                linear-gradient(var(--accent), var(--accent)) 0 100% / 0 6px no-repeat,
+                linear-gradient(var(--ink), var(--ink)) 0 100% / 100% 1px no-repeat;
+            transition: background-size 80ms linear;
+        }
+        .lnk-xl:hover { background-size: 100% 6px, 100% 1px; }
+
+        /* Buttons: hard edges */
+        .btn {
+            display: inline-flex; align-items: center; gap: .5rem; padding: .8rem 1.25rem;
+            border: 1px solid var(--ink); font-family: "IBM Plex Mono", ui-monospace, monospace;
+            font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink);
+        }
+        .btn:hover { background: var(--accent); }
+        .btn-solid { background: var(--ink); color: var(--paper); }
+        .btn-solid:hover { background: var(--accent); color: var(--ink); }
+
+        /* Nav */
+        .navlink {
+            display: flex; align-items: center; padding: 0 1rem; border-left: 1px solid var(--rule);
+            font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+        }
+        .navlink:hover { background: var(--accent); }
+        .navlink[aria-current="true"] { box-shadow: inset 0 -3px 0 var(--accent); }
+        .mlink {
+            display: block; padding: 1rem 1.5rem; border-bottom: 1px solid var(--rule);
+            font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase;
+        }
+        .mlink:hover { background: var(--accent); }
+
+        /* Dash list (replaces disc bullets) */
+        .dash { list-style: none; padding: 0; margin: 0; }
+        .dash li { position: relative; padding-left: 1.25rem; }
+        .dash li + li { margin-top: .5rem; }
+        .dash li::before { content: "\2014"; position: absolute; left: 0; font-family: "IBM Plex Mono", ui-monospace, monospace; }
+
+        /* Slash list for skills */
+        .slash { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; row-gap: .25rem; }
+        .slash li + li::before { content: "/"; margin: 0 .75rem; color: rgba(15,15,17,.35); }
+        .hov:hover .slash li + li::before { color: var(--ink); }
+
+        /* Spec table (hero) */
+        .spec { display: grid; grid-template-columns: repeat(2, 1fr); border-top: 1px solid var(--rule); }
+        .spec > div { padding: 1rem 1.5rem; border-bottom: 1px solid var(--rule); border-right: 1px solid var(--rule); min-width: 0; overflow-wrap: anywhere; }
+        .spec > div:nth-child(2n) { border-right: 0; }
+        .spec > div:nth-last-child(-n+2) { border-bottom: 0; }
+        @media (min-width: 768px) {
+            .spec { grid-template-columns: repeat(3, 1fr); }
+            .spec > div:nth-child(2n) { border-right: 1px solid var(--rule); }
+            .spec > div:nth-child(3n) { border-right: 0; }
+            .spec > div:nth-last-child(-n+2) { border-bottom: 1px solid var(--rule); }
+            .spec > div:nth-last-child(-n+3) { border-bottom: 0; }
+        }
+
+        /* Metric strip (projects) */
+        .strip { display: grid; grid-template-columns: repeat(2, 1fr); border-top: 1px solid var(--rule); }
+        .strip > div { padding: 1rem 1.25rem; border-right: 1px solid var(--rule); min-width: 0; }
+        .strip > div:nth-child(-n+2) { border-bottom: 1px solid var(--rule); }
+        .strip > div:nth-child(2n) { border-right: 0; }
+        .strip .v { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 1.5rem; font-weight: 600; letter-spacing: -.02em; line-height: 1.1; }
+        .strip .k { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; line-height: 1.4; margin-top: .5rem; }
+        .strip .hl { box-shadow: inset 0 3px 0 var(--accent); }
+        @media (min-width: 768px) {
+            .strip { grid-template-columns: repeat(4, 1fr); }
+            .strip > div:nth-child(-n+2) { border-bottom: 0; }
+            .strip > div:nth-child(2n) { border-right: 1px solid var(--rule); }
+            .strip > div:last-child { border-right: 0; }
+        }
+
+        @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+    </style>
 </head>
-<body class="bg-white text-black font-sans antialiased selection:bg-black selection:text-white">
+<body class="font-sans antialiased text-base leading-normal">
 
     <!-- Navigation -->
-    <nav class="fixed w-full bg-white/90 backdrop-blur-md z-50 border-b border-gray-200">
-        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center relative">
-            <a href="#" class="text-xl font-bold tracking-tight">PK.</a>
-            
-            <!-- Desktop Menu -->
-            <div class="space-x-6 text-sm font-medium text-gray-600 hidden md:block">
-                <a href="#about" class="hover:text-black transition-colors">About</a>
-                <a href="#skills" class="hover:text-black transition-colors">Skills</a>
-                <a href="#experience" class="hover:text-black transition-colors">Experience</a>
-                <a href="#projects" class="hover:text-black transition-colors">Projects</a>
-                <a href="#awards" class="hover:text-black transition-colors">Awards</a>
-                <a href="#contact" class="hover:text-black transition-colors">Contact</a>
+    <nav class="sticky top-0 z-50 bg-paper border-b">
+        <div class="frame relative flex items-stretch justify-between h-14">
+            <a href="#top" class="flex items-center px-6 font-bold text-lg tracking-[-0.04em] border-r hover:bg-accent">PK</a>
+
+            <div class="hidden md:flex items-stretch ml-auto">
+                <a href="#about" data-nav class="navlink">About</a>
+                <a href="#skills" data-nav class="navlink">Skills</a>
+                <a href="#experience" data-nav class="navlink">Experience</a>
+                <a href="#projects" data-nav class="navlink">Projects</a>
+                <a href="#awards" data-nav class="navlink">Awards</a>
+                <a href="#contact" data-nav class="navlink">Contact</a>
             </div>
 
-            <!-- Mobile Menu Button -->
-            <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="md:hidden text-gray-600 hover:text-black focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-            </button>
+            <div class="hidden lg:flex items-center gap-3 px-6 border-l label">
+                <span class="sq"></span> Open / W2027 Co-op
+            </div>
+
+            <button id="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu" class="md:hidden px-6 border-l label hover:bg-accent">Menu</button>
         </div>
-        
-        <!-- Mobile Menu Dropdown -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-gray-200 px-4 py-4 shadow-lg absolute w-full left-0 top-full flex-col space-y-4">
-            <a href="#about" onclick="toggleMobileMenu()" class="block text-sm font-medium text-gray-600 hover:text-black">About</a>
-            <a href="#skills" onclick="toggleMobileMenu()" class="block text-sm font-medium text-gray-600 hover:text-black">Skills</a>
-            <a href="#experience" onclick="toggleMobileMenu()" class="block text-sm font-medium text-gray-600 hover:text-black">Experience</a>
-            <a href="#projects" onclick="toggleMobileMenu()" class="block text-sm font-medium text-gray-600 hover:text-black">Projects</a>
-            <a href="#awards" onclick="toggleMobileMenu()" class="block text-sm font-medium text-gray-600 hover:text-black">Awards</a>
-            <a href="#contact" onclick="toggleMobileMenu()" class="block text-sm font-medium text-gray-600 hover:text-black">Contact</a>
+
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-paper border-b">
+            <a href="#about" onclick="toggleMobileMenu()" class="mlink">01 / About</a>
+            <a href="#skills" onclick="toggleMobileMenu()" class="mlink">02 / Skills</a>
+            <a href="#experience" onclick="toggleMobileMenu()" class="mlink">03 / Experience</a>
+            <a href="#projects" onclick="toggleMobileMenu()" class="mlink">04 / Projects</a>
+            <a href="#awards" onclick="toggleMobileMenu()" class="mlink">05 / Awards</a>
+            <a href="#contact" onclick="toggleMobileMenu()" class="mlink">06 / Contact</a>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header class="pt-32 pb-20 px-4 max-w-6xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-12 min-h-[60vh]">
-        <div class="flex flex-col">
-            <!-- Co-op Badge -->
-            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-50 border border-green-200 text-green-700 text-sm font-semibold mb-6 w-max shadow-sm">
-                <span class="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse"></span>
-                Seeking Winter 2027 Co-op (Vancouver / Canada-wide)
+    <!-- Hero -->
+    <header id="top" class="border-b">
+        <div class="frame">
+            <div class="grid md:grid-cols-12">
+                <div class="md:col-span-8 p-6 md:p-10 md:border-r flex flex-col justify-between gap-16">
+                    <p class="label mute">Portfolio / Biomedical Engineering / 2026</p>
+
+                    <div>
+                        <h1 class="text-5xl md:text-7xl font-bold tracking-[-0.04em] leading-[0.95]">Prem<br>Khanvilkar</h1>
+                        <h2 class="mt-5 text-2xl md:text-3xl font-medium tracking-tight mute">Biomedical Engineering Student</h2>
+                        <p class="mt-6 max-w-xl text-base leading-relaxed body">
+                            3rd-year Biomedical Engineering student at UBC building the hardware and reading the signals behind prosthetics and healthcare robotics. I work on EMG signal processing, PCB design for bionic arms, and biomechanical modelling. Seeking co-op opportunities in Vancouver and across Canada.
+                        </p>
+                        <div class="mt-8 flex flex-wrap gap-3">
+                            <a href="mailto:khanvilkar.prem14@gmail.com" class="btn btn-solid">Email Me</a>
+                            <a href="https://linkedin.com/in/premkhanvilkar14/" target="_blank" rel="noopener" class="btn">LinkedIn <span>↗</span></a>
+                            <a href="Prem Khanvilkar Resume.pdf" target="_blank" rel="noopener" class="btn">View Resume <span>PDF ↗</span></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Headshot -->
+                <figure class="md:col-span-4 order-first md:order-last border-b md:border-b-0">
+                    <img src="headshot.jpg" alt="Prem Khanvilkar" class="block w-full aspect-square object-cover object-top" onerror="fb(this)">
+                    <figcaption class="label mute px-6 py-3 border-t">Fig. 00 — Portrait</figcaption>
+                </figure>
             </div>
-            
-            <h1 class="text-5xl md:text-7xl font-extrabold mb-4 tracking-tight">Prem Khanvilkar</h1>
-            <h2 class="text-2xl md:text-3xl text-gray-600 font-medium mb-6">Biomedical Engineering Student</h2>
-            <p class="text-lg md:text-xl text-gray-500 max-w-2xl mb-8 leading-relaxed">
-                3rd-year Biomedical Engineering student at UBC building the hardware and reading the signals behind prosthetics and healthcare robotics. I work on EMG signal processing, PCB design for bionic arms, and biomechanical modelling. Seeking co-op opportunities in Vancouver and across Canada.
-            </p>
-            <div class="flex flex-wrap gap-4">
-                <a href="mailto:khanvilkar.prem14@gmail.com" class="px-6 py-3 bg-black hover:bg-gray-800 text-white font-semibold rounded-lg transition-all">Email Me</a>
-                <a href="https://linkedin.com/in/premkhanvilkar14/" target="_blank" class="px-6 py-3 bg-white hover:bg-gray-50 text-black font-semibold rounded-lg transition-all border border-gray-300">LinkedIn</a>
-                <a href="Prem Khanvilkar Resume.pdf" target="_blank" class="inline-flex items-center px-6 py-3 bg-white hover:bg-gray-50 text-black font-semibold rounded-lg transition-all border border-gray-300">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                    View Resume
-                </a>
+
+            <!-- Spec table -->
+            <div class="spec">
+                <div>
+                    <p class="label mute">Role</p>
+                    <p class="mt-1 text-sm font-medium">Biomedical Engineering Student, 3rd Year</p>
+                </div>
+                <div>
+                    <p class="label mute">School</p>
+                    <p class="mt-1 text-sm font-medium">University of British Columbia</p>
+                </div>
+                <div>
+                    <p class="label mute">Focus</p>
+                    <p class="mt-1 text-sm font-medium">EMG &amp; Biosignals / PCB Design / Biomechanics / Healthcare Robotics</p>
+                </div>
+                <div>
+                    <p class="label mute">Status</p>
+                    <p class="mt-1 text-sm font-medium flex items-start gap-2"><span class="sq mt-[6px]"></span> Seeking Winter 2027 Co-op</p>
+                </div>
+                <div>
+                    <p class="label mute">Location</p>
+                    <p class="mt-1 text-sm font-medium">Vancouver / Canada-wide</p>
+                </div>
+                <div>
+                    <p class="label mute">Contact</p>
+                    <p class="mt-1 text-sm font-medium"><a href="mailto:khanvilkar.prem14@gmail.com" class="lnk" style="font-family:inherit;font-size:inherit;letter-spacing:0;text-transform:none">khanvilkar.prem14@gmail.com</a></p>
+                </div>
             </div>
         </div>
-        <!-- Headshot -->
-        <img src="headshot.jpg" alt="Prem Khanvilkar" class="order-first md:order-last w-40 h-40 md:w-56 md:h-56 lg:w-72 lg:h-72 rounded-full object-cover object-top border-4 border-white shadow-xl ring-1 ring-gray-200 shrink-0" onerror="this.onerror=null; this.src='https://placehold.co/400x400/f3f4f6/a1a1aa?text=Photo'">
     </header>
 
-    <!-- About Section -->
-    <section id="about" class="py-20 px-4 max-w-4xl mx-auto border-t border-gray-200">
-        <h3 class="text-3xl font-bold mb-8 tracking-tight">About Me</h3>
-        <div class="text-lg text-gray-600 leading-relaxed space-y-6">
-            <div class="w-44 h-44 md:w-56 md:h-56 mb-4 mx-auto md:mx-0 md:ml-8 md:float-right rounded-2xl overflow-hidden border border-gray-200 shadow-md">
-                <img src="about-photo.png" alt="Prem Khanvilkar smiling" class="w-full h-full object-cover scale-[1.35] origin-[50%_38%]" onerror="this.onerror=null; this.src='https://placehold.co/400x400/f3f4f6/a1a1aa?text=Photo'">
-            </div>
-            <p>
-                Hi, I am Prem Khanvilkar, and I am a 3rd-year biomedical engineering student at the University of British Columbia (UBC) who builds the hardware and reads the signals behind medical devices and healthcare robotics.
-            </p>
-            <p>
-                It all started with something that didn’t work. In high school, I took on a passion project to build an EMG-controlled robotic arm, and it fell far short of what I had imagined. Though it failed, my persistence in chasing this failure exposed me to electromyography (EMG), biosignal processing, and human-machine interfaces, and I never left. 
-            </p>
-            
-            <div id="about-extended" class="hidden space-y-6 mt-6">
-                <p>
-                    Today, I work as an <strong>Electrical Subteam member at UBC Bionics.</strong> I was recently recruited to design Printed Circuit Boards (PCBs) for functional bionic arms built for International competitions, including Cybathlon. 
-                </p>
-                <p>
-                    Alongside that, I work as a <strong>Student Researcher</strong> with the <strong>UBC Biochemical Innovation Technology team (BIT)</strong>, exploring the effects of natural polyphenols like Quercetin on Type 2 Diabetes. I presented this research to nearly 400 attendees and adjudicators at conferences such as the Multidisciplinary Undergraduate Research Conference (MURC). I was also <strong>awarded</strong> a Certificate of Excellence for my work and contribution to the BIT team. 
-                </p>
-                <p>
-                    My technical work also extends into <strong>biosignal processing, biomechanics, and computational modelling</strong>. In MATLAB, I built the analysis pipelines for projects on grip strength and bicep curls, taking raw 2000 Hz EMG through band-pass and notch filtering, and used them to study the relationship between muscle activation and force. I have also analyzed jump-landing ground reaction forces and applied them to compare fracture fixation plate designs using finite-element analysis in SolidWorks. 
-                </p>
-                <p>
-                    Outside engineering, you can usually find me training and competing in Muay Thai, weightlifting, or producing engineering content for my YouTube channel, <strong>The Fourth Perspective.</strong>
-                </p>
-                <p>
-                    I am building my expertise in <strong>medical device lifecycle management</strong>, specifically focusing on hardware evaluation, design for manufacturing, and manufacturing scale-up. Long-term, I hope to design and build my own medical devices and prosthetics in healthcare robotics. 
-                </p>
+    <!-- 01 About -->
+    <section id="about" class="border-b scroll-mt-[57px]">
+        <div class="frame grid md:grid-cols-12">
+            <div class="md:col-span-3 p-6 md:border-r">
+                <div class="md:sticky md:top-[72px]">
+                    <p class="label mute">01</p>
+                    <h2 class="mt-2 text-3xl font-bold tracking-[-0.03em]">About</h2>
+                </div>
             </div>
 
-            <button id="about-toggle-btn" onclick="toggleAbout()" class="text-sm font-semibold text-black hover:text-gray-600 transition-colors flex items-center gap-1 mt-2">
-                Read More
-                <svg class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-            </button>
+            <div class="md:col-span-9">
+                <div class="grid lg:grid-cols-9">
+                    <div class="lg:col-span-6 p-6 md:p-10 space-y-5 text-lg md:text-xl leading-snug">
+                        <p>Hi, I am Prem Khanvilkar, and I am a 3rd-year biomedical engineering student at the University of British Columbia (UBC) who builds the hardware and reads the signals behind medical devices and healthcare robotics.</p>
+                        <p class="mute">It all started with something that didn’t work. In high school, I took on a passion project to build an EMG-controlled robotic arm, and it fell far short of what I had imagined. Though it failed, my persistence in chasing this failure exposed me to electromyography (EMG), biosignal processing, and human-machine interfaces, and I never left.</p>
+                    </div>
+                    <figure class="lg:col-span-3 p-6 border-t lg:border-t-0 lg:border-l">
+                        <div class="aspect-square overflow-hidden border">
+                            <img src="about-photo.png" alt="Prem Khanvilkar smiling" class="w-full h-full object-cover scale-[1.35] origin-[50%_38%]" onerror="fb(this)">
+                        </div>
+                        <figcaption class="label mute mt-3">Fig. 01 — Prem Khanvilkar</figcaption>
+                    </figure>
+                </div>
+
+                <div class="border-t p-6 md:p-10 lg:columns-2 lg:gap-10 text-[15px] leading-relaxed body [&>p]:mb-5 [&>p:last-child]:mb-0">
+                    <p>Today, I work as an <strong>Electrical Subteam member at UBC Bionics.</strong> I was recently recruited to design Printed Circuit Boards (PCBs) for functional bionic arms built for International competitions, including Cybathlon.</p>
+                    <p>Alongside that, I work as a <strong>Student Researcher</strong> with the <strong>UBC Biochemical Innovation Technology team (BIT)</strong>, exploring the effects of natural polyphenols like Quercetin on Type 2 Diabetes. I presented this research to nearly 400 attendees and adjudicators at conferences such as the Multidisciplinary Undergraduate Research Conference (MURC). I was also <strong>awarded</strong> a Certificate of Excellence for my work and contribution to the BIT team.</p>
+                    <p>My technical work also extends into <strong>biosignal processing, biomechanics, and computational modelling</strong>. In MATLAB, I built the analysis pipelines for projects on grip strength and bicep curls, taking raw 2000 Hz EMG through band-pass and notch filtering, and used them to study the relationship between muscle activation and force. I have also analyzed jump-landing ground reaction forces and applied them to compare fracture fixation plate designs using finite-element analysis in SolidWorks.</p>
+                    <p>Outside engineering, you can usually find me training and competing in Muay Thai, weightlifting, or producing engineering content for my YouTube channel, <strong>The Fourth Perspective.</strong></p>
+                    <p>I am building my expertise in <strong>medical device lifecycle management</strong>, specifically focusing on hardware evaluation, design for manufacturing, and manufacturing scale-up. Long-term, I hope to design and build my own medical devices and prosthetics in healthcare robotics.</p>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Skills Section -->
-    <section id="skills" class="py-20 bg-gray-50 border-y border-gray-200 px-4">
-        <div class="max-w-6xl mx-auto">
-            <h3 class="text-3xl font-bold mb-10">Technical Skills</h3>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-                    <h4 class="text-xl font-semibold mb-4 border-b border-gray-100 pb-2">Programming</h4>
-                    <ul class="space-y-2 text-gray-600">
+    <!-- 02 Skills -->
+    <section id="skills" class="border-b scroll-mt-[57px]">
+        <div class="frame grid md:grid-cols-12">
+            <div class="md:col-span-3 p-6 md:border-r">
+                <div class="md:sticky md:top-[72px]">
+                    <p class="label mute">02</p>
+                    <h2 class="mt-2 text-3xl font-bold tracking-[-0.03em]">Technical Skills</h2>
+                </div>
+            </div>
+
+            <div class="md:col-span-9">
+                <div class="hov grid md:grid-cols-12 border-b">
+                    <p class="md:col-span-3 label p-6 md:border-r">Programming</p>
+                    <ul class="md:col-span-9 slash p-6 font-mono text-sm">
                         <li>Python</li>
                         <li>MATLAB</li>
                         <li>R</li>
-                        <li>C & C#</li>
+                        <li>C &amp; C#</li>
                     </ul>
                 </div>
-                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-                    <h4 class="text-xl font-semibold mb-4 border-b border-gray-100 pb-2">Hardware & Lab</h4>
-                    <ul class="space-y-2 text-gray-600">
-                        <li>Circuit Design & Analysis</li>
+                <div class="hov grid md:grid-cols-12 border-b">
+                    <p class="md:col-span-3 label p-6 md:border-r">Hardware &amp; Lab</p>
+                    <ul class="md:col-span-9 slash p-6 font-mono text-sm">
+                        <li>Circuit Design &amp; Analysis</li>
                         <li>PCB Design (Altium / KiCad)</li>
-                        <li>EMG & Biosignal Processing</li>
-                        <li>Oscilloscope & Breadboarding</li>
+                        <li>EMG &amp; Biosignal Processing</li>
+                        <li>Oscilloscope &amp; Breadboarding</li>
                         <li>Microcontrollers (Arduino)</li>
                         <li>BioRadio Systems</li>
                     </ul>
                 </div>
-                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-                    <h4 class="text-xl font-semibold mb-4 border-b border-gray-100 pb-2">Engineering Software</h4>
-                    <ul class="space-y-2 text-gray-600">
+                <div class="hov grid md:grid-cols-12">
+                    <p class="md:col-span-3 label p-6 md:border-r">Engineering Software</p>
+                    <ul class="md:col-span-9 slash p-6 font-mono text-sm">
                         <li>SolidWorks</li>
-                        <li>Pymol & SwissDock</li>
+                        <li>Pymol &amp; SwissDock</li>
                         <li>BLAST</li>
                         <li>GraphPad Prism</li>
                     </ul>
@@ -156,447 +322,531 @@
         </div>
     </section>
 
-    <!-- Experience Section -->
-    <section id="experience" class="py-20 px-4 max-w-6xl mx-auto">
-        <h3 class="text-3xl font-bold mb-10">Work Experience</h3>
-        <div class="space-y-8">
-            <div class="border-l-2 border-black pl-6 py-2 relative">
-                <div class="absolute w-3 h-3 bg-black rounded-full -left-[7px] top-4"></div>
-                <div class="flex flex-col md:flex-row md:justify-between md:items-baseline mb-2">
-                    <h4 class="text-xl font-bold">Electrical Subteam Member</h4>
-                    <span class="text-sm font-medium text-black bg-gray-100 px-3 py-1 rounded-full w-max mt-2 md:mt-0">Sep 2026 - Present</span>
+    <!-- 03 Experience -->
+    <section id="experience" class="border-b scroll-mt-[57px]">
+        <div class="frame grid md:grid-cols-12">
+            <div class="md:col-span-3 p-6 md:border-r">
+                <div class="md:sticky md:top-[72px]">
+                    <p class="label mute">03</p>
+                    <h2 class="mt-2 text-3xl font-bold tracking-[-0.03em]">Work Experience</h2>
+                    <p class="label mute mt-6 flex items-center gap-2"><span class="sq"></span> = Ongoing</p>
                 </div>
-                <p class="text-gray-800 font-medium mb-3">UBC Bionics | Vancouver, Canada</p>
-                <ul class="list-disc list-inside text-gray-600 space-y-2 text-sm leading-relaxed">
-                    <li>Selected for the electrical subteam to assist in the design, prototyping, and testing of circuitry for bionic prosthetics.</li>
-                    <li>Collaborating on printed circuit board (PCB) design, microcontroller programming, and biomedical sensor integration for international Cybathlon competitions.</li>
-                </ul>
             </div>
 
-            <div class="border-l-2 border-gray-300 pl-6 py-2 relative">
-                <div class="absolute w-3 h-3 bg-gray-300 rounded-full -left-[7px] top-4"></div>
-                <div class="flex flex-col md:flex-row md:justify-between md:items-baseline mb-2">
-                    <h4 class="text-xl font-bold">Student Researcher</h4>
-                    <span class="text-sm font-medium text-black bg-gray-100 px-3 py-1 rounded-full w-max mt-2 md:mt-0">Oct 2025 - Present</span>
-                </div>
-                <p class="text-gray-800 font-medium mb-3">Biochemical Innovation Technology | Vancouver, Canada</p>
-                <ul class="list-disc list-inside text-gray-600 space-y-2 text-sm leading-relaxed mb-4">
-                    <li>Shadowed islet picking and β-cell extraction from primary human tissues; prepared experimental media using serial dilutions.</li>
-                    <li>Quantified insulin secretion using ELISA assays; generated and interpreted data using GraphPad Prism.</li>
-                    <li>Presented research findings during weekly meetings and at the Multidisciplinary Undergraduate Research Conference (MURC).</li>
-                </ul>
-                <a href="Certificate_excellence_BESTBIT.jpeg" target="_blank" class="inline-flex items-center text-xs font-semibold text-black bg-white hover:bg-gray-50 px-3 py-1.5 rounded border border-gray-300 transition-colors">
-                    <svg class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
-                    View Certificate of Excellence
-                </a>
-            </div>
+            <div class="md:col-span-9">
+                <!-- UBC Bionics -->
+                <article class="hov grid md:grid-cols-12 border-b">
+                    <div class="md:col-span-2 p-6 md:border-r">
+                        <p class="label flex items-start gap-2"><span class="sq mt-[3px]"></span> Sep 2026 — Present</p>
+                    </div>
+                    <div class="md:col-span-4 p-6 md:border-r">
+                        <h3 class="text-xl font-bold tracking-tight leading-tight">Electrical Subteam Member</h3>
+                        <p class="label mute mt-2">UBC Bionics<br>Vancouver, Canada</p>
+                    </div>
+                    <div class="md:col-span-6 p-6">
+                        <ul class="dash text-sm leading-relaxed body">
+                            <li>Selected for the electrical subteam to assist in the design, prototyping, and testing of circuitry for bionic prosthetics.</li>
+                            <li>Collaborating on printed circuit board (PCB) design, microcontroller programming, and biomedical sensor integration for international Cybathlon competitions.</li>
+                        </ul>
+                    </div>
+                </article>
 
-            <div class="border-l-2 border-gray-300 pl-6 py-2 relative">
-                <div class="absolute w-3 h-3 bg-gray-300 rounded-full -left-[7px] top-4"></div>
-                <div class="flex flex-col md:flex-row md:justify-between md:items-baseline mb-2">
-                    <h4 class="text-xl font-bold">Co-founder</h4>
-                    <span class="text-sm font-medium text-gray-600 bg-gray-100 px-3 py-1 rounded-full w-max mt-2 md:mt-0">Mar 2025 - Present</span>
-                </div>
-                <p class="text-gray-800 font-medium mb-3">The Fourth Perspective (YouTube Channel) | Remote</p>
-                <ul class="list-disc list-inside text-gray-600 space-y-2 text-sm leading-relaxed mb-4">
-                    <li>Scaled channel to near 9,000 subscribers and 200,000+ views in under 4 weeks.</li>
-                    <li>Produced content focusing on Engineering Lifestyle and international university application guidance.</li>
-                </ul>
-                <a href="https://www.youtube.com/@the.4th.perspective" target="_blank" class="inline-flex items-center text-xs font-semibold text-black bg-white hover:bg-gray-50 px-3 py-1.5 rounded border border-gray-300 transition-colors">
-                    <svg class="w-4 h-4 text-red-600 mr-1.5" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
-                    Visit YouTube Channel
-                </a>
-            </div>
+                <!-- BIT -->
+                <article class="hov grid md:grid-cols-12 border-b">
+                    <div class="md:col-span-2 p-6 md:border-r">
+                        <p class="label flex items-start gap-2"><span class="sq mt-[3px]"></span> Oct 2025 — Present</p>
+                    </div>
+                    <div class="md:col-span-4 p-6 md:border-r">
+                        <h3 class="text-xl font-bold tracking-tight leading-tight">Student Researcher</h3>
+                        <p class="label mute mt-2">Biochemical Innovation Technology<br>Vancouver, Canada</p>
+                    </div>
+                    <div class="md:col-span-6 p-6">
+                        <ul class="dash text-sm leading-relaxed body">
+                            <li>Shadowed islet picking and β-cell extraction from primary human tissues; prepared experimental media using serial dilutions.</li>
+                            <li>Quantified insulin secretion using ELISA assays; generated and interpreted data using GraphPad Prism.</li>
+                            <li>Presented research findings during weekly meetings and at the Multidisciplinary Undergraduate Research Conference (MURC).</li>
+                        </ul>
+                        <p class="mt-5"><a href="Certificate_excellence_BESTBIT.jpeg" target="_blank" rel="noopener" class="lnk">View Certificate of Excellence · IMG ↗</a></p>
+                    </div>
+                </article>
 
-            <div class="border-l-2 border-gray-300 pl-6 py-2 relative">
-                <div class="absolute w-3 h-3 bg-gray-300 rounded-full -left-[7px] top-4"></div>
-                <div class="flex flex-col md:flex-row md:justify-between md:items-baseline mb-2">
-                    <h4 class="text-xl font-bold">Chief Human Resource Officer</h4>
-                    <span class="text-sm font-medium text-gray-600 bg-gray-100 px-3 py-1 rounded-full w-max mt-2 md:mt-0">Mar 2023 - Nov 2023</span>
-                </div>
-                <p class="text-gray-800 font-medium mb-3">Bifrost EdTech | Delhi, India</p>
-                <ul class="list-disc list-inside text-gray-600 space-y-2 text-sm leading-relaxed mb-4">
-                    <li>Led a professional HR team overseeing 1000+ students across departments with zero reported grievances.</li>
-                    <li>Drafted Memorandums of Understanding, Codes of Conduct, and Offer Letters.</li>
-                    <li>Conducted 50+ interviews and distributed certificates for over 250 students.</li>
-                </ul>
-                <a href="Letter of Recommendations - Prem Khanvilkar.pdf" target="_blank" class="inline-flex items-center text-xs font-semibold text-black bg-white hover:bg-gray-50 px-3 py-1.5 rounded border border-gray-300 transition-colors">
-                    <svg class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                    View Letter of Recommendation (PDF)
-                </a>
+                <!-- The Fourth Perspective -->
+                <article class="hov grid md:grid-cols-12 border-b">
+                    <div class="md:col-span-2 p-6 md:border-r">
+                        <p class="label flex items-start gap-2"><span class="sq mt-[3px]"></span> Mar 2025 — Present</p>
+                    </div>
+                    <div class="md:col-span-4 p-6 md:border-r">
+                        <h3 class="text-xl font-bold tracking-tight leading-tight">Co-founder</h3>
+                        <p class="label mute mt-2">The Fourth Perspective (YouTube Channel)<br>Remote</p>
+                    </div>
+                    <div class="md:col-span-6 p-6">
+                        <ul class="dash text-sm leading-relaxed body">
+                            <li>Scaled channel to near 9,000 subscribers and 200,000+ views in under 4 weeks.</li>
+                            <li>Produced content focusing on Engineering Lifestyle and international university application guidance.</li>
+                        </ul>
+                        <p class="mt-5"><a href="https://www.youtube.com/@the.4th.perspective" target="_blank" rel="noopener" class="lnk">Visit YouTube Channel ↗</a></p>
+                    </div>
+                </article>
+
+                <!-- Bifrost -->
+                <article class="hov grid md:grid-cols-12">
+                    <div class="md:col-span-2 p-6 md:border-r">
+                        <p class="label">Mar 2023 — Nov 2023</p>
+                    </div>
+                    <div class="md:col-span-4 p-6 md:border-r">
+                        <h3 class="text-xl font-bold tracking-tight leading-tight">Chief Human Resource Officer</h3>
+                        <p class="label mute mt-2">Bifrost EdTech<br>Delhi, India</p>
+                    </div>
+                    <div class="md:col-span-6 p-6">
+                        <ul class="dash text-sm leading-relaxed body">
+                            <li>Led a professional HR team overseeing 1000+ students across departments with zero reported grievances.</li>
+                            <li>Drafted Memorandums of Understanding, Codes of Conduct, and Offer Letters.</li>
+                            <li>Conducted 50+ interviews and distributed certificates for over 250 students.</li>
+                        </ul>
+                        <p class="mt-5"><a href="Letter of Recommendations - Prem Khanvilkar.pdf" target="_blank" rel="noopener" class="lnk">View Letter of Recommendation · PDF ↗</a></p>
+                    </div>
+                </article>
             </div>
         </div>
     </section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="py-20 bg-gray-50 border-y border-gray-200 px-4">
-        <div class="max-w-6xl mx-auto">
-            <h3 class="text-3xl font-bold mb-10">Research & Technical Projects</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <!-- 04 Projects -->
+    <section id="projects" class="border-b scroll-mt-[57px]">
+        <div class="frame">
+            <div class="grid md:grid-cols-12 border-b">
+                <div class="md:col-span-3 p-6 md:border-r">
+                    <p class="label mute">04</p>
+                    <h2 class="mt-2 text-3xl font-bold tracking-[-0.03em]">Projects</h2>
+                </div>
+                <div class="md:col-span-9 p-6 flex items-end">
+                    <p class="label mute">Research &amp; Technical Projects — 07 Entries</p>
+                </div>
+            </div>
 
-                <!-- Featured Presentation: MURC 2026 (Full Width) -->
-                <div class="bg-white rounded-xl overflow-hidden border border-gray-200 shadow-sm group hover:border-black transition-colors md:col-span-2 flex flex-col md:flex-row">
-                    <div class="w-full md:w-2/5 h-72 md:h-auto bg-gray-100 flex items-center justify-center border-b md:border-b-0 md:border-r border-gray-200 relative">
-                        <img src="1774900125537.jpeg" alt="MURC 2026 Presentation" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity" onerror="this.onerror=null; this.src='https://placehold.co/800x400/f3f4f6/a1a1aa?text=MURC+Presentation'">
+            <!-- P-01 MURC -->
+            <article class="hov border-b">
+                <div class="grid md:grid-cols-12">
+                    <div class="md:col-span-3 p-6 md:border-r flex flex-col gap-3">
+                        <p class="label">P-01</p>
+                        <p class="label mute">MURC 2026</p>
+                        <p class="label mute">T2D / Quercetin / Human Islets</p>
                     </div>
-                    <div class="p-6 md:w-3/5 flex flex-col justify-center">
-                        <div class="flex items-start md:items-center justify-between mb-2 flex-col md:flex-row gap-2">
-                            <h4 class="text-xl md:text-2xl font-bold">UBC BEST: Biochemical Innovation Research</h4>
-                            <span class="text-xs font-semibold bg-black text-white px-2 py-1 rounded whitespace-nowrap">MURC 2026</span>
+                    <div class="md:col-span-9">
+                        <div class="grid lg:grid-cols-9">
+                            <div class="lg:col-span-5 p-6 md:p-8 lg:border-r">
+                                <h3 class="text-2xl font-bold tracking-[-0.02em] leading-tight">UBC BEST: Biochemical Innovation Research</h3>
+                                <p class="label mute mt-3">Multidisciplinary Undergraduate Research Conference Presentation</p>
+                                <p class="mt-5 text-[15px] leading-relaxed body">Presented research tackling a critical issue in Type 2 Diabetes: beta-cell dysfunction and death caused by insulin resistance. Explored whether Quercetin—a natural polyphenol found in antioxidant-rich foods—could help support beta-cell survival using human islet models.</p>
+                                <ul class="dash mt-4 text-[15px] leading-relaxed body">
+                                    <li>Observed potential dose-dependent responses to Quercetin in two of eight human donor samples.</li>
+                                    <li>Noted significant physiological variability between donors (age, size, β-cell proportion) heavily impacting glucose-specific insulin secretion.</li>
+                                </ul>
+                                <p class="mt-4 text-[15px] leading-relaxed font-medium">Our findings contribute to the limited pool of human-donor research and help shape the direction of future T2D studies.</p>
+                            </div>
+                            <figure class="lg:col-span-4 p-6 md:p-8 border-t lg:border-t-0">
+                                <div class="aspect-[4/3] overflow-hidden border bg-paper">
+                                    <img src="1774900125537.jpeg" alt="MURC 2026 Presentation" class="w-full h-full object-cover" onerror="fb(this)">
+                                </div>
+                                <figcaption class="label mute mt-3">Fig. P-01 — MURC 2026 presentation</figcaption>
+                            </figure>
                         </div>
-                        <p class="text-sm text-gray-500 mb-4">Multidisciplinary Undergraduate Research Conference Presentation</p>
-                        <p class="text-gray-600 text-sm mb-4 leading-relaxed">
-                            Presented research tackling a critical issue in Type 2 Diabetes: beta-cell dysfunction and death caused by insulin resistance. Explored whether Quercetin—a natural polyphenol found in antioxidant-rich foods—could help support beta-cell survival using human islet models.
-                        </p>
-                        <ul class="list-disc list-inside text-gray-600 space-y-1 text-sm mb-4">
-                            <li>Observed potential dose-dependent responses to Quercetin in two of eight human donor samples.</li>
-                            <li>Noted significant physiological variability between donors (age, size, β-cell proportion) heavily impacting glucose-specific insulin secretion.</li>
-                        </ul>
-                        <p class="text-gray-800 text-sm font-medium">
-                            Our findings contribute to the limited pool of human-donor research and help shape the direction of future T2D studies.
-                        </p>
+                        <div class="strip">
+                            <div class="hl"><p class="v">2 / 8</p><p class="k mute">Donors with potential dose response</p></div>
+                            <div><p class="v">~400</p><p class="k mute">Attendees &amp; adjudicators</p></div>
+                            <div><p class="v">MURC</p><p class="k mute">Conference, 2026</p></div>
+                            <div><p class="v">Apr 2026</p><p class="k mute">Certificate of Excellence</p></div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- P-02 Docking -->
+            <article class="hov border-b">
+                <div class="grid md:grid-cols-12">
+                    <div class="md:col-span-3 p-6 md:border-r flex flex-col gap-3">
+                        <p class="label">P-02</p>
+                        <p class="label mute">Jan 2026 — Apr 2026</p>
+                        <p class="label mute">UBC, Vancouver, Canada</p>
+                        <p class="label mute">Molecular Docking / SwissDock / PDB 1LI4</p>
+                    </div>
+                    <div class="md:col-span-9">
+                        <div class="grid lg:grid-cols-9">
+                            <div class="lg:col-span-5 p-6 md:p-8 lg:border-r">
+                                <h3 class="text-2xl font-bold tracking-[-0.02em] leading-tight">Targeting Human SAH Hydrolase (AHCY) to Suppress MERS-CoV Replication</h3>
+                                <p class="mt-5 text-[15px] leading-relaxed body">A Structure-Based Docking Study evaluating human SAH hydrolase (AHCY) as a target to suppress MERS-CoV RNA capping using six 6'-fluorinated aristeromycin analogues. Justified the use of the 2.01 Å crystal structure 1LI4 over low-confidence AlphaFold models. Executed molecular docking via SwissDock, predicting that active compounds occupied the substrate pocket alongside NADH, with 6',6'-difluoroaristeromycin emerging as the strongest candidate. Critically analyzed divergences between rigid-receptor docking predictions and experimental IC50 values.</p>
+                                <p class="mt-6"><a href="AHCY_MERS-CoV_Docking_Study_Khanvilkar.pdf" target="_blank" rel="noopener" class="lnk">View Paper · PDF ↗</a></p>
+                            </div>
+                            <figure class="lg:col-span-4 p-6 md:p-8 border-t lg:border-t-0">
+                                <div class="aspect-[4/3] overflow-hidden border bg-paper">
+                                    <img src="Screenshot 2026-09-28 133708.png" alt="Molecular Docking Paper" class="w-full h-full object-cover object-top" onerror="fb(this)">
+                                </div>
+                                <figcaption class="label mute mt-3">Fig. P-02 — Docking study, first page</figcaption>
+                            </figure>
+                        </div>
+                        <div class="strip">
+                            <div><p class="v">2.01 Å</p><p class="k mute">Crystal structure 1LI4</p></div>
+                            <div><p class="v">6</p><p class="k mute">Fluorinated analogues docked</p></div>
+                            <div><p class="v">SwissDock</p><p class="k mute">Docking engine</p></div>
+                            <div class="hl"><p class="v">6′,6′-diF</p><p class="k mute">Strongest candidate</p></div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- P-03 EMG Bicep -->
+            <article class="hov border-b">
+                <div class="grid md:grid-cols-12">
+                    <div class="md:col-span-3 p-6 md:border-r flex flex-col gap-3">
+                        <p class="label">P-03</p>
+                        <p class="label mute">Nov 2025</p>
+                        <p class="label mute">UBC, Vancouver, Canada</p>
+                        <p class="label mute">MATLAB / sEMG / Biceps Brachii</p>
+                    </div>
+                    <div class="md:col-span-9">
+                        <div class="grid lg:grid-cols-9">
+                            <div class="lg:col-span-5 p-6 md:p-8 lg:border-r">
+                                <h3 class="text-2xl font-bold tracking-[-0.02em] leading-tight">EMG Analysis of Bicep Curls at Different Angles</h3>
+                                <p class="mt-5 text-[15px] leading-relaxed body">Investigated how changes in shoulder and trunk angle influence biceps brachii activation during dumbbell biceps curls. Measured surface electromyography at zero, 45, and 50-degree orientations, revealing the 50-degree condition produced the highest peak and RMS values.</p>
+                                <p class="mt-6"><a href="EMG Analysis of Bicep Curls at Different Angles.pdf" target="_blank" rel="noopener" class="lnk">View Paper · PDF ↗</a></p>
+                            </div>
+                            <figure class="lg:col-span-4 p-6 md:p-8 border-t lg:border-t-0">
+                                <div class="aspect-[4/3] overflow-hidden border bg-paper">
+                                    <img src="image_ad41cb.jpg" alt="EMG Analysis Front Page" class="w-full h-full object-cover object-top" onerror="fb(this)">
+                                </div>
+                                <figcaption class="label mute mt-3">Fig. P-03 — EMG analysis, front page</figcaption>
+                            </figure>
+                        </div>
+                        <div class="strip">
+                            <div><p class="v">3</p><p class="k mute">Orientations: 0°, 45°, 50°</p></div>
+                            <div class="hl"><p class="v">50°</p><p class="k mute">Highest peak &amp; RMS</p></div>
+                            <div><p class="v">sEMG</p><p class="k mute">Surface electromyography</p></div>
+                            <div><p class="v">Biceps</p><p class="k mute">Brachii activation</p></div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- P-04 FEA -->
+            <article class="hov border-b">
+                <div class="grid md:grid-cols-12">
+                    <div class="md:col-span-3 p-6 md:border-r flex flex-col gap-3">
+                        <p class="label">P-04</p>
+                        <p class="label mute">Oct 2025</p>
+                        <p class="label mute">UBC, Vancouver, Canada</p>
+                        <p class="label mute">SolidWorks / FEA / Ti-6Al-4V</p>
+                    </div>
+                    <div class="md:col-span-9">
+                        <div class="grid lg:grid-cols-9">
+                            <div class="lg:col-span-5 p-6 md:p-8 lg:border-r">
+                                <h3 class="text-2xl font-bold tracking-[-0.02em] leading-tight">Orthopaedic Fracture Fixation Plate FEA</h3>
+                                <p class="mt-5 text-[15px] leading-relaxed body">Combined ground reaction force data (1536.6 N applied peak physiological load) from a deep-squat jump landing with SolidWorks static finite-element simulations to compare fixation plate designs. Evaluated Ti-6Al-4V against alloy steel and 1060 aluminium alloy. Demonstrated that the Ti-6Al-4V design with two 5mm holes achieved the lowest max von Mises stress (0.7233 MPa) and optimal safety factor.</p>
+                                <p class="mt-6"><a href="Design and Finite-Element Comparison of Orthopedic Fracture Fixation Plates Under Jump-Landing Loads.pdf" target="_blank" rel="noopener" class="lnk">View Paper · PDF ↗</a></p>
+                            </div>
+                            <figure class="lg:col-span-4 p-6 md:p-8 border-t lg:border-t-0">
+                                <div class="aspect-[4/3] overflow-hidden border bg-paper">
+                                    <img src="Screenshot 2026-09-28 122435.png" alt="SolidWorks Model" class="w-full h-full object-cover object-top" onerror="fb(this)">
+                                </div>
+                                <figcaption class="label mute mt-3">Fig. P-04 — SolidWorks model</figcaption>
+                            </figure>
+                        </div>
+                        <div class="strip">
+                            <div><p class="v">1536.6 N</p><p class="k mute">Peak physiological load</p></div>
+                            <div class="hl"><p class="v">0.7233 MPa</p><p class="k mute">Lowest max von Mises stress</p></div>
+                            <div><p class="v">3</p><p class="k mute">Materials evaluated</p></div>
+                            <div><p class="v">Ti-6Al-4V</p><p class="k mute">Best design, two 5 mm holes</p></div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- P-05 Grip -->
+            <article class="hov border-b">
+                <div class="grid md:grid-cols-12">
+                    <div class="md:col-span-3 p-6 md:border-r flex flex-col gap-3">
+                        <p class="label">P-05</p>
+                        <p class="label mute">Nov 2025</p>
+                        <p class="label mute">UBC, Vancouver, Canada</p>
+                        <p class="label mute">MATLAB / sEMG / 2000 Hz</p>
+                    </div>
+                    <div class="md:col-span-9">
+                        <div class="grid lg:grid-cols-9">
+                            <div class="lg:col-span-5 p-6 md:p-8 lg:border-r">
+                                <h3 class="text-2xl font-bold tracking-[-0.02em] leading-tight">Grip Strength &amp; EMG Force Correlation</h3>
+                                <p class="mt-5 text-[15px] leading-relaxed body">Recorded surface EMG and hand dynamometer force data simultaneously at 2000 Hz during isometric handgrip contractions. Processed signals in MATLAB through a custom filter pipeline (band-pass, notch, rectification, low-pass) to obtain linear envelopes. Calculated electromechanical delays (0.295s left, 0.378s right) and modelled the linear relationship between EMG amplitude and isometric force.</p>
+                                <p class="mt-6"><a href="Relationship Between Surface EMG Amplitude and Isometric Grip Force in the Dominant and Non-Dominant Forearm.pdf" target="_blank" rel="noopener" class="lnk">View Paper · PDF ↗</a></p>
+                            </div>
+                            <figure class="lg:col-span-4 p-6 md:p-8 border-t lg:border-t-0">
+                                <div class="aspect-[4/3] overflow-hidden border bg-paper">
+                                    <img src="image_0e6a81.jpg" alt="BioRadio Setup" class="w-full h-full object-cover object-top" onerror="fb(this)">
+                                </div>
+                                <figcaption class="label mute mt-3">Fig. P-05 — BioRadio setup</figcaption>
+                            </figure>
+                        </div>
+                        <div class="strip">
+                            <div><p class="v">2000 Hz</p><p class="k mute">Simultaneous EMG + force</p></div>
+                            <div class="hl"><p class="v">0.295 s</p><p class="k mute">Electromechanical delay, left</p></div>
+                            <div><p class="v">0.378 s</p><p class="k mute">Electromechanical delay, right</p></div>
+                            <div><p class="v">4</p><p class="k mute">Filter stages</p></div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- P-06 Kinematics -->
+            <article class="hov border-b">
+                <div class="grid md:grid-cols-12">
+                    <div class="md:col-span-3 p-6 md:border-r flex flex-col gap-3">
+                        <p class="label">P-06</p>
+                        <p class="label mute">Nov 2025</p>
+                        <p class="label mute">UBC, Vancouver, Canada</p>
+                        <p class="label mute">Motion Capture / Nuitrack / FFT</p>
+                    </div>
+                    <div class="md:col-span-9">
+                        <div class="grid lg:grid-cols-9">
+                            <div class="lg:col-span-5 p-6 md:p-8 lg:border-r">
+                                <h3 class="text-2xl font-bold tracking-[-0.02em] leading-tight">Kinematic Motion Capture Analysis</h3>
+                                <p class="mt-5 text-[15px] leading-relaxed body">Captured elbow and wrist kinematics during a drinking task to compare marker-based optical tracking and marker-less depth-sensor systems (Nuitrack). Applied FFT analysis and a 1.5 Hz Butterworth low-pass filter to smooth data, calculating angular and tangential velocities. Identified a 12-16% kinematic difference between left and right arms during the task.</p>
+                                <p class="mt-6"><a href="Marker-Based and Marker-Less Motion Capture for Measuring Elbow Kinematics During a Drinking Task.pdf" target="_blank" rel="noopener" class="lnk">View Paper · PDF ↗</a></p>
+                            </div>
+                            <figure class="lg:col-span-4 p-6 md:p-8 border-t lg:border-t-0">
+                                <div class="aspect-[4/3] overflow-hidden border bg-paper">
+                                    <img src="Screenshot 2026-09-28 122854.png" alt="Motion Capture Analysis" class="w-full h-full object-cover object-top" onerror="fb(this)">
+                                </div>
+                                <figcaption class="label mute mt-3">Fig. P-06 — Motion capture analysis</figcaption>
+                            </figure>
+                        </div>
+                        <div class="strip">
+                            <div><p class="v">2</p><p class="k mute">Tracking systems compared</p></div>
+                            <div><p class="v">1.5 Hz</p><p class="k mute">Butterworth low-pass</p></div>
+                            <div><p class="v">FFT</p><p class="k mute">Spectral analysis</p></div>
+                            <div class="hl"><p class="v">12–16%</p><p class="k mute">Left vs right arm difference</p></div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- P-07 Quercetin review -->
+            <article class="hov">
+                <div class="grid md:grid-cols-12">
+                    <div class="md:col-span-3 p-6 md:border-r flex flex-col gap-3">
+                        <p class="label">P-07</p>
+                        <p class="label mute">BMEG 210 Term Project</p>
+                        <p class="label mute">UBC, Vancouver, Canada</p>
+                        <p class="label mute">Literature Review / Drug Delivery / T2D</p>
+                    </div>
+                    <div class="md:col-span-9">
+                        <div class="grid lg:grid-cols-9">
+                            <div class="lg:col-span-5 p-6 md:p-8 lg:border-r">
+                                <h3 class="text-2xl font-bold tracking-[-0.02em] leading-tight">Entrapment Strategies to Enhance Quercetin Bioavailability</h3>
+                                <p class="mt-5 text-[15px] leading-relaxed body">A comprehensive literature review analyzing four carrier strategies—emulsions, hydrogels, liposomes, and polymeric micelles—to improve the aqueous solubility and absorption of quercetin for Type 2 Diabetes adjunct therapy. Highlighted that polymeric micelles showed the most promising pharmacokinetic gains (up to 360% bioavailability increase) and options for active cellular targeting.</p>
+                                <p class="mt-6"><a href="quercetin-literature-review.pdf" target="_blank" rel="noopener" class="lnk">View Paper · PDF ↗</a></p>
+                            </div>
+                            <figure class="lg:col-span-4 p-6 md:p-8 border-t lg:border-t-0">
+                                <div class="aspect-[4/3] overflow-hidden border bg-paper">
+                                    <img src="Screenshot 2026-09-28 142655.png" alt="Quercetin Literature Review" class="w-full h-full object-cover object-top" onerror="fb(this)">
+                                </div>
+                                <figcaption class="label mute mt-3">Fig. P-07 — Literature review, first page</figcaption>
+                            </figure>
+                        </div>
+                        <div class="strip">
+                            <div><p class="v">4</p><p class="k mute">Carrier strategies reviewed</p></div>
+                            <div class="hl"><p class="v">360%</p><p class="k mute">Max bioavailability gain, micelles</p></div>
+                            <div><p class="v">T2D</p><p class="k mute">Adjunct therapy target</p></div>
+                            <div><p class="v">BMEG 210</p><p class="k mute">Term project</p></div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- 05 Awards, Certifications, Interests -->
+    <section id="awards" class="border-b scroll-mt-[57px]">
+        <div class="frame grid md:grid-cols-12">
+            <div class="md:col-span-3 p-6 md:border-r">
+                <div class="md:sticky md:top-[72px]">
+                    <p class="label mute">05</p>
+                    <h2 class="mt-2 text-3xl font-bold tracking-[-0.03em]">Awards, Certifications &amp; Interests</h2>
+                </div>
+            </div>
+
+            <div class="md:col-span-9 grid lg:grid-cols-9">
+
+                <!-- A: Awards & Leadership -->
+                <div class="lg:col-span-4">
+                    <p class="label mute px-6 py-4 border-b">A / Awards &amp; Leadership</p>
+
+                    <div class="hov p-6 border-b">
+                        <p class="label mute">Fall 2025 &amp; Winter 2026</p>
+                        <h3 class="mt-2 text-lg font-bold tracking-tight leading-tight">Dean's List</h3>
+                        <p class="text-sm font-medium mt-1">University of British Columbia</p>
+                        <p class="mt-2 text-sm leading-relaxed body">Awarded for maintaining exceptional academic standing.</p>
+                    </div>
+
+                    <div class="hov p-6 border-b">
+                        <p class="label mute">Apr 2026</p>
+                        <h3 class="mt-2 text-lg font-bold tracking-tight leading-tight">Certificate of Excellence</h3>
+                        <p class="text-sm font-medium mt-1">UBC BEST BIT</p>
+                        <p class="mt-2 text-sm leading-relaxed body">Awarded for excellent work, creativity, and invaluable contribution to the team's success.</p>
+                        <p class="mt-4"><a href="Certificate_excellence_BESTBIT.jpeg" target="_blank" rel="noopener" class="lnk">View Certificate · IMG ↗</a></p>
+                    </div>
+
+                    <div class="hov p-6 border-b">
+                        <p class="label mute">Nov 2022</p>
+                        <h3 class="mt-2 text-lg font-bold tracking-tight leading-tight">Gold Medalist</h3>
+                        <p class="text-sm font-medium mt-1">WAKO International Kickboxing</p>
+                        <figure class="mt-4">
+                            <img src="wako-gold.jpg" alt="Gold medal win at the WAKO international kickboxing championship" class="block w-40 aspect-square object-cover border" onerror="fb(this)">
+                            <figcaption class="label mute mt-2">Fig. A-01 — WAKO gold</figcaption>
+                        </figure>
+                        <p class="mt-4"><a href="Screenshot 2026-09-28 151442.jpg" target="_blank" rel="noopener" class="lnk">View Certificate · IMG ↗</a></p>
+                    </div>
+
+                    <div class="hov p-6 border-b">
+                        <p class="label mute">Jun 2023 — Nov 2023</p>
+                        <h3 class="mt-2 text-lg font-bold tracking-tight leading-tight">Co-Founder</h3>
+                        <p class="text-sm font-medium mt-1">The Helping Paw</p>
+                        <p class="mt-2 text-sm leading-relaxed body">Co-founded a local animal care initiative addressing stray animal sanitation.</p>
+                        <p class="mt-4"><a href="image_1c1d24.jpg" target="_blank" rel="noopener" class="lnk">View Certificate · IMG ↗</a></p>
+                    </div>
+
+                    <div class="hov p-6 border-b lg:border-b-0">
+                        <p class="label mute">5 Months</p>
+                        <h3 class="mt-2 text-lg font-bold tracking-tight leading-tight">Volunteer</h3>
+                        <p class="text-sm font-medium mt-1">Careiyat Foundation</p>
+                        <p class="mt-2 text-sm leading-relaxed body">Contributed over 100 hours conducting food and sanitary drives.</p>
+                        <p class="mt-4"><a href="edited-image.png" target="_blank" rel="noopener" class="lnk">View Certificate · IMG ↗</a></p>
                     </div>
                 </div>
 
-                <!-- Featured Project: Molecular Docking (Full Width) -->
-                <div class="bg-white rounded-xl overflow-hidden border border-gray-200 shadow-sm group hover:border-black transition-colors md:col-span-2 flex flex-col md:flex-row">
-                    <div class="w-full md:w-2/5 h-64 md:h-auto bg-gray-100 flex items-center justify-center border-b md:border-b-0 md:border-r border-gray-200 relative">
-                        <img src="Screenshot 2026-09-28 133708.png" alt="Molecular Docking Paper" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity object-top" onerror="this.onerror=null; this.src='https://placehold.co/800x400/f3f4f6/a1a1aa?text=Molecular+Docking+Preview'">
+                <!-- B: Certifications -->
+                <div class="lg:col-span-3 lg:border-l">
+                    <p class="label mute px-6 py-4 border-b">B / Certifications</p>
+
+                    <div class="hov p-6 border-b">
+                        <p class="label mute">Expected Dec 2026</p>
+                        <h3 class="mt-2 text-base font-bold tracking-tight">Altium PCB Design</h3>
+                        <p class="text-sm mt-1 body">Altium Education</p>
                     </div>
-                    <div class="p-6 md:w-3/5 flex flex-col justify-center">
-                        <h4 class="text-xl md:text-2xl font-bold mb-2">Targeting Human SAH Hydrolase (AHCY) to Suppress MERS-CoV Replication</h4>
-                        <p class="text-sm text-gray-500 mb-4">Jan 2026 - Apr 2026 | UBC, Vancouver, Canada</p>
-                        <p id="desc-docking" class="text-gray-600 text-sm mb-2 leading-relaxed line-clamp-3">
-                            A Structure-Based Docking Study evaluating human SAH hydrolase (AHCY) as a target to suppress MERS-CoV RNA capping using six 6'-fluorinated aristeromycin analogues. Justified the use of the 2.01 Å crystal structure 1LI4 over low-confidence AlphaFold models. Executed molecular docking via SwissDock, predicting that active compounds occupied the substrate pocket alongside NADH, with 6',6'-difluoroaristeromycin emerging as the strongest candidate. Critically analyzed divergences between rigid-receptor docking predictions and experimental IC50 values.
-                        </p>
-                        <button onclick="toggleText('desc-docking', this)" class="text-xs text-left font-semibold text-gray-500 hover:text-black mb-6 transition-colors w-max">Read More</button><br>
-                        <a href="AHCY_MERS-CoV_Docking_Study_Khanvilkar.pdf" target="_blank" class="inline-flex items-center text-sm font-semibold text-black bg-white hover:bg-gray-50 px-4 py-2 rounded-lg transition-colors border border-gray-300 w-max">
-                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                            View Paper (PDF)
-                        </a>
+
+                    <div class="hov p-6 border-b">
+                        <p class="label mute">Nov 2025</p>
+                        <h3 class="mt-2 text-base font-bold tracking-tight">Chemical Safety</h3>
+                        <p class="text-sm mt-1 body">UBC</p>
+                        <p class="mt-3"><a href="chemical-safety-prem-khanvilkar.pdf" target="_blank" rel="noopener" class="lnk">View Certificate · PDF ↗</a></p>
+                    </div>
+
+                    <div class="hov p-6 border-b">
+                        <p class="label mute">Dec 2025</p>
+                        <h3 class="mt-2 text-base font-bold tracking-tight">Biosafety</h3>
+                        <p class="text-sm mt-1 body">UBC</p>
+                        <p class="mt-3"><a href="biosafety-for-study-team-members-prem-khanvilkar.pdf" target="_blank" rel="noopener" class="lnk">View Certificate · PDF ↗</a></p>
+                    </div>
+
+                    <div class="hov p-6 border-b">
+                        <p class="label mute">Sep 2026</p>
+                        <h3 class="mt-2 text-base font-bold tracking-tight">Design Team Safety</h3>
+                        <p class="text-sm mt-1 body">UBC</p>
+                        <p class="mt-3"><a href="Engineering_Design_T_Prem_Khanvilkar (4).pdf" target="_blank" rel="noopener" class="lnk">View Certificate · PDF ↗</a></p>
+                    </div>
+
+                    <div class="hov p-6 border-b lg:border-b-0">
+                        <p class="label mute">Oct 2025</p>
+                        <h3 class="mt-2 text-base font-bold tracking-tight">WHMIS</h3>
+                        <p class="text-sm mt-1 body">Workplace Hazardous Materials Information System</p>
+                        <p class="mt-3"><a href="general-audience-workplace-hazardous-materials-information-system-whmis-prem-khanvilkar.pdf" target="_blank" rel="noopener" class="lnk">View Certificate · PDF ↗</a></p>
                     </div>
                 </div>
 
-                <!-- Standard Grid Project: EMG Bicep (1 Column) -->
-                <div class="bg-white rounded-xl overflow-hidden border border-gray-200 shadow-sm group hover:border-black transition-colors">
-                    <div class="w-full h-48 bg-gray-100 flex items-center justify-center border-b border-gray-200 relative">
-                        <img src="image_ad41cb.jpg" alt="EMG Analysis Front Page" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity object-top" onerror="this.onerror=null; this.src='https://placehold.co/800x400/f3f4f6/a1a1aa?text=EMG+Analysis+Preview'">
-                    </div>
-                    <div class="p-6">
-                        <h4 class="text-xl font-bold mb-2">EMG Analysis of Bicep Curls at Different Angles</h4>
-                        <p class="text-sm text-gray-500 mb-4">Nov 2025 | UBC, Vancouver, Canada</p>
-                        <p id="desc-emg" class="text-gray-600 text-sm mb-2 leading-relaxed line-clamp-3">
-                            Investigated how changes in shoulder and trunk angle influence biceps brachii activation during dumbbell biceps curls. Measured surface electromyography at zero, 45, and 50-degree orientations, revealing the 50-degree condition produced the highest peak and RMS values.
-                        </p>
-                        <button onclick="toggleText('desc-emg', this)" class="text-xs text-left font-semibold text-gray-500 hover:text-black mb-6 transition-colors w-max">Read More</button><br>
-                        <a href="EMG Analysis of Bicep Curls at Different Angles.pdf" target="_blank" class="inline-flex items-center text-sm font-semibold text-black bg-white hover:bg-gray-50 px-4 py-2 rounded-lg transition-colors border border-gray-300">
-                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                            View Paper (PDF)
-                        </a>
-                    </div>
+                <!-- C: Interests -->
+                <div class="lg:col-span-2 lg:border-l border-t lg:border-t-0">
+                    <p class="label mute px-6 py-4 border-b">C / Interests</p>
+                    <ul class="text-sm font-medium">
+                        <li class="hov px-6 py-4 border-b">Kickboxing &amp; Muay Thai</li>
+                        <li class="hov px-6 py-4 border-b">Weightlifting &amp; Running</li>
+                        <li class="hov px-6 py-4 border-b">Tennis</li>
+                        <li class="hov px-6 py-4 border-b">Healthcare Robotics</li>
+                        <li class="hov px-6 py-4 border-b">3D Printing &amp; Rapid Prototyping</li>
+                        <li class="hov px-6 py-4 border-b">Bio-inspired Design</li>
+                        <li class="hov px-6 py-4 border-b">Video Editing</li>
+                        <li class="hov px-6 py-4">
+                            Content Creation
+                            <a href="https://www.youtube.com/@the.4th.perspective" target="_blank" rel="noopener" class="lnk ml-2" title="View YouTube Channel">YouTube ↗</a>
+                        </li>
+                    </ul>
                 </div>
-
-                <!-- Standard Grid Project: Orthopaedic Implant (1 Column) -->
-                <div class="bg-white rounded-xl overflow-hidden border border-gray-200 shadow-sm group hover:border-black transition-colors">
-                    <div class="w-full h-48 bg-gray-100 flex items-center justify-center border-b border-gray-200 relative">
-                        <img src="Screenshot 2026-09-28 122435.png" alt="SolidWorks Model" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity object-top" onerror="this.onerror=null; this.src='https://placehold.co/800x400/f3f4f6/a1a1aa?text=Implant+Analysis+Preview'">
-                    </div>
-                    <div class="p-6">
-                        <h4 class="text-xl font-bold mb-2">Orthopaedic Fracture Fixation Plate FEA</h4>
-                        <p class="text-sm text-gray-500 mb-4">Oct 2025 | UBC, Vancouver, Canada</p>
-                        <p id="desc-implant" class="text-gray-600 text-sm mb-2 leading-relaxed line-clamp-3">
-                            Combined ground reaction force data (1536.6 N applied peak physiological load) from a deep-squat jump landing with SolidWorks static finite-element simulations to compare fixation plate designs. Evaluated Ti-6Al-4V against alloy steel and 1060 aluminium alloy. Demonstrated that the Ti-6Al-4V design with two 5mm holes achieved the lowest max von Mises stress (0.7233 MPa) and optimal safety factor.
-                        </p>
-                        <button onclick="toggleText('desc-implant', this)" class="text-xs text-left font-semibold text-gray-500 hover:text-black mb-6 transition-colors w-max">Read More</button><br>
-                        <a href="Design and Finite-Element Comparison of Orthopedic Fracture Fixation Plates Under Jump-Landing Loads.pdf" target="_blank" class="inline-flex items-center text-sm font-semibold text-black bg-white hover:bg-gray-50 px-4 py-2 rounded-lg transition-colors border border-gray-300">
-                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                            View Paper (PDF)
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Standard Grid Project: Grip Strength (1 Column) -->
-                <div class="bg-white rounded-xl overflow-hidden border border-gray-200 shadow-sm group hover:border-black transition-colors">
-                    <div class="w-full h-48 bg-gray-100 flex items-center justify-center border-b border-gray-200 relative">
-                        <img src="image_0e6a81.jpg" alt="BioRadio Setup" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity object-top" onerror="this.onerror=null; this.src='https://placehold.co/800x400/f3f4f6/a1a1aa?text=Grip+Strength+Preview'">
-                    </div>
-                    <div class="p-6">
-                        <h4 class="text-xl font-bold mb-2">Grip Strength & EMG Force Correlation</h4>
-                        <p class="text-sm text-gray-500 mb-4">Nov 2025 | UBC, Vancouver, Canada</p>
-                        <p id="desc-grip" class="text-gray-600 text-sm mb-2 leading-relaxed line-clamp-3">
-                            Recorded surface EMG and hand dynamometer force data simultaneously at 2000 Hz during isometric handgrip contractions. Processed signals in MATLAB through a custom filter pipeline (band-pass, notch, rectification, low-pass) to obtain linear envelopes. Calculated electromechanical delays (0.295s left, 0.378s right) and modelled the linear relationship between EMG amplitude and isometric force.
-                        </p>
-                        <button onclick="toggleText('desc-grip', this)" class="text-xs text-left font-semibold text-gray-500 hover:text-black mb-6 transition-colors w-max">Read More</button><br>
-                        <a href="Relationship Between Surface EMG Amplitude and Isometric Grip Force in the Dominant and Non-Dominant Forearm.pdf" target="_blank" class="inline-flex items-center text-sm font-semibold text-black bg-white hover:bg-gray-50 px-4 py-2 rounded-lg transition-colors border border-gray-300">
-                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                            View Paper (PDF)
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Standard Grid Project: Kinematic Motion Capture (1 Column) -->
-                <div class="bg-white rounded-xl overflow-hidden border border-gray-200 shadow-sm group hover:border-black transition-colors">
-                    <div class="w-full h-48 bg-gray-100 flex items-center justify-center border-b border-gray-200 relative">
-                        <img src="Screenshot 2026-09-28 122854.png" alt="Motion Capture Analysis" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity object-top" onerror="this.onerror=null; this.src='https://placehold.co/800x400/f3f4f6/a1a1aa?text=Kinematic+Motion+Preview'">
-                    </div>
-                    <div class="p-6">
-                        <h4 class="text-xl font-bold mb-2">Kinematic Motion Capture Analysis</h4>
-                        <p class="text-sm text-gray-500 mb-4">Nov 2025 | UBC, Vancouver, Canada</p>
-                        <p id="desc-kinematic" class="text-gray-600 text-sm mb-2 leading-relaxed line-clamp-3">
-                            Captured elbow and wrist kinematics during a drinking task to compare marker-based optical tracking and marker-less depth-sensor systems (Nuitrack). Applied FFT analysis and a 1.5 Hz Butterworth low-pass filter to smooth data, calculating angular and tangential velocities. Identified a 12-16% kinematic difference between left and right arms during the task.
-                        </p>
-                        <button onclick="toggleText('desc-kinematic', this)" class="text-xs text-left font-semibold text-gray-500 hover:text-black mb-6 transition-colors w-max">Read More</button><br>
-                        <a href="Marker-Based and Marker-Less Motion Capture for Measuring Elbow Kinematics During a Drinking Task.pdf" target="_blank" class="inline-flex items-center text-sm font-semibold text-black bg-white hover:bg-gray-50 px-4 py-2 rounded-lg transition-colors border border-gray-300">
-                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                            View Paper (PDF)
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Wide Grid Project: Entrapment Strategies (Quercetin) (Full Width) -->
-                <div class="bg-white rounded-xl overflow-hidden border border-gray-200 shadow-sm group hover:border-black transition-colors md:col-span-2 flex flex-col md:flex-row">
-                    <div class="w-full md:w-2/5 h-64 md:h-auto bg-gray-100 flex items-center justify-center border-b md:border-b-0 md:border-r border-gray-200 relative">
-                        <img src="Screenshot 2026-09-28 142655.png" alt="Quercetin Literature Review" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity object-top" onerror="this.onerror=null; this.src='https://placehold.co/800x400/f3f4f6/a1a1aa?text=Literature+Review+Preview'">
-                    </div>
-                    <div class="p-6 md:w-3/5 flex flex-col justify-center">
-                        <h4 class="text-xl md:text-2xl font-bold mb-2">Entrapment Strategies to Enhance Quercetin Bioavailability</h4>
-                        <p class="text-sm text-gray-500 mb-4">BMEG 210 Term Project | UBC, Vancouver, Canada</p>
-                        <p id="desc-quercetin" class="text-gray-600 text-sm mb-2 leading-relaxed line-clamp-3">
-                            A comprehensive literature review analyzing four carrier strategies—emulsions, hydrogels, liposomes, and polymeric micelles—to improve the aqueous solubility and absorption of quercetin for Type 2 Diabetes adjunct therapy. Highlighted that polymeric micelles showed the most promising pharmacokinetic gains (up to 360% bioavailability increase) and options for active cellular targeting.
-                        </p>
-                        <button onclick="toggleText('desc-quercetin', this)" class="text-xs text-left font-semibold text-gray-500 hover:text-black mb-6 transition-colors w-max">Read More</button><br>
-                        <a href="quercetin-literature-review.pdf" target="_blank" class="inline-flex items-center text-sm font-semibold text-black bg-white hover:bg-gray-50 px-4 py-2 rounded-lg transition-colors border border-gray-300 w-max">
-                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                            View Paper (PDF)
-                        </a>
-                    </div>
-                </div>
-
             </div>
         </div>
     </section>
 
-    <!-- Awards, Certifications & Interests Section -->
-    <section id="awards" class="py-20 px-4 max-w-6xl mx-auto border-t border-gray-200 mt-10">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-            
-            <!-- Awards & Leadership Column -->
-            <div>
-                <h3 class="text-2xl font-bold mb-8 tracking-tight">Awards & Leadership</h3>
-                
-                <div class="space-y-8">
-                    <!-- Academic Awards -->
-                    <div>
-                        <h4 class="text-lg font-bold text-black">University of British Columbia</h4>
-                        <p class="text-gray-600 font-medium mb-2">Dean's List &ndash; Fall 2025 & Winter 2026</p>
-                        <ul class="list-disc list-inside text-gray-500 text-sm space-y-1 ml-1">
-                            <li>Awarded for maintaining exceptional academic standing.</li>
-                        </ul>
-                    </div>
-
-                    <!-- UBC BEST Award -->
-                    <div>
-                        <h4 class="text-lg font-bold text-black">UBC BEST BIT</h4>
-                        <p class="text-gray-600 font-medium mb-2">Certificate of Excellence &ndash; Apr 2026</p>
-                        <ul class="list-disc list-inside text-gray-500 text-sm space-y-1 ml-1 mb-3">
-                            <li>Awarded for excellent work, creativity, and invaluable contribution to the team's success.</li>
-                        </ul>
-                        <a href="Certificate_excellence_BESTBIT.jpeg" target="_blank" class="inline-flex items-center text-xs font-semibold text-black bg-white hover:bg-gray-50 px-3 py-1.5 rounded border border-gray-300 transition-colors">
-                            <svg class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
-                            View Certificate
-                        </a>
-                    </div>
-
-                    <!-- Sports Award -->
-                    <div>
-                        <h4 class="text-lg font-bold text-black">WAKO International Kickboxing</h4>
-                        <p class="text-gray-600 font-medium mb-3">Gold Medalist &ndash; Nov 2022</p>
-                        <img src="wako-gold.jpg" alt="Gold medal win at the WAKO international kickboxing championship" class="w-full max-w-[200px] rounded-xl border border-gray-200 shadow-sm mb-3 object-cover aspect-square" onerror="this.onerror=null; this.src='https://placehold.co/400x400/f3f4f6/a1a1aa?text=WAKO+Gold'">
-                        <a href="Screenshot 2026-09-28 151442.jpg" target="_blank" class="inline-flex items-center text-xs font-semibold text-black bg-white hover:bg-gray-50 px-3 py-1.5 rounded border border-gray-300 transition-colors">
-                            <svg class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
-                            View Certificate
-                        </a>
-                    </div>
-
-                    <!-- Volunteer 1 -->
-                    <div>
-                        <h4 class="text-lg font-bold text-black">The Helping Paw</h4>
-                        <p class="text-gray-600 font-medium mb-2">Co-Founder &ndash; June 2023 to Nov 2023</p>
-                        <ul class="list-disc list-inside text-gray-500 text-sm space-y-1 ml-1 mb-3">
-                            <li>Co-founded a local animal care initiative addressing stray animal sanitation.</li>
-                        </ul>
-                        <a href="image_1c1d24.jpg" target="_blank" class="inline-flex items-center text-xs font-semibold text-black bg-white hover:bg-gray-50 px-3 py-1.5 rounded border border-gray-300 transition-colors">
-                            <svg class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
-                            View Certificate
-                        </a>
-                    </div>
-
-                    <!-- Volunteer 2 -->
-                    <div>
-                        <h4 class="text-lg font-bold text-black">Careiyat Foundation</h4>
-                        <p class="text-gray-600 font-medium mb-2">Volunteer &ndash; 5 Months</p>
-                        <ul class="list-disc list-inside text-gray-500 text-sm space-y-1 ml-1 mb-3">
-                            <li>Contributed over 100 hours conducting food and sanitary drives.</li>
-                        </ul>
-                        <a href="edited-image.png" target="_blank" class="inline-flex items-center text-xs font-semibold text-black bg-white hover:bg-gray-50 px-3 py-1.5 rounded border border-gray-300 transition-colors">
-                            <svg class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
-                            View Certificate
-                        </a>
-                    </div>
+    <!-- 06 Contact -->
+    <section id="contact" class="border-b scroll-mt-[57px]">
+        <div class="frame grid md:grid-cols-12">
+            <div class="md:col-span-3 p-6 md:border-r">
+                <div class="md:sticky md:top-[72px]">
+                    <p class="label mute">06</p>
+                    <h2 class="mt-2 text-3xl font-bold tracking-[-0.03em]">Let's Connect</h2>
                 </div>
             </div>
 
-            <!-- Certifications Column -->
-            <div>
-                <h3 class="text-2xl font-bold mb-8 tracking-tight">Certifications</h3>
-                
-                <div class="space-y-6">
-                    <div>
-                        <h4 class="text-md font-bold text-black">Altium PCB Design</h4>
-                        <p class="text-gray-500 text-sm">Altium Education &ndash; Expected Dec 2026</p>
-                    </div>
-
-                    <div>
-                        <h4 class="text-md font-bold text-black">Chemical Safety</h4>
-                        <p class="text-gray-500 text-sm mb-2">UBC &ndash; Nov 2025</p>
-                        <a href="chemical-safety-prem-khanvilkar.pdf" target="_blank" class="inline-flex items-center text-xs font-semibold text-black bg-white hover:bg-gray-50 px-3 py-1.5 rounded border border-gray-300 transition-colors">
-                            <svg class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
-                            View Certificate
-                        </a>
-                    </div>
-                    
-                    <div>
-                        <h4 class="text-md font-bold text-black">Biosafety</h4>
-                        <p class="text-gray-500 text-sm mb-2">UBC &ndash; Dec 2025</p>
-                        <a href="biosafety-for-study-team-members-prem-khanvilkar.pdf" target="_blank" class="inline-flex items-center text-xs font-semibold text-black bg-white hover:bg-gray-50 px-3 py-1.5 rounded border border-gray-300 transition-colors">
-                            <svg class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
-                            View Certificate
-                        </a>
-                    </div>
-
-                    <div>
-                        <h4 class="text-md font-bold text-black">Design Team Safety</h4>
-                        <p class="text-gray-500 text-sm mb-2">UBC &ndash; Sep 2026</p>
-                        <a href="Engineering_Design_T_Prem_Khanvilkar (4).pdf" target="_blank" class="inline-flex items-center text-xs font-semibold text-black bg-white hover:bg-gray-50 px-3 py-1.5 rounded border border-gray-300 transition-colors">
-                            <svg class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
-                            View Certificate
-                        </a>
-                    </div>
-
-                    <div>
-                        <h4 class="text-md font-bold text-black">WHMIS</h4>
-                        <p class="text-gray-500 text-sm mb-2">Workplace Hazardous Materials Information System &ndash; Oct 2025</p>
-                        <a href="general-audience-workplace-hazardous-materials-information-system-whmis-prem-khanvilkar.pdf" target="_blank" class="inline-flex items-center text-xs font-semibold text-black bg-white hover:bg-gray-50 px-3 py-1.5 rounded border border-gray-300 transition-colors">
-                            <svg class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
-                            View Certificate
-                        </a>
-                    </div>
+            <div class="md:col-span-9 p-6 md:p-10">
+                <p class="max-w-2xl text-lg leading-relaxed body">
+                    I am actively looking for co-op roles starting in Winter 2027 in Vancouver or across Canada. If you're building something that helps people move, heal, or live better, I'd love to chat.
+                </p>
+                <p class="mt-10">
+                    <a href="mailto:khanvilkar.prem14@gmail.com" class="lnk-xl text-[clamp(1.5rem,4.2vw,2.75rem)] font-bold tracking-[-0.03em] leading-tight break-all">khanvilkar.prem14@gmail.com</a>
+                </p>
+                <div class="mt-10 flex flex-wrap gap-3">
+                    <a href="mailto:khanvilkar.prem14@gmail.com" class="btn btn-solid">Email Me</a>
+                    <a href="https://linkedin.com/in/premkhanvilkar14/" target="_blank" rel="noopener" class="btn">Connect on LinkedIn <span>↗</span></a>
                 </div>
             </div>
-
-            <!-- Interests Column -->
-            <div>
-                <h3 class="text-2xl font-bold mb-8 tracking-tight">Interests</h3>
-                
-                <ul class="space-y-4 text-gray-600 font-medium">
-                    <li class="flex items-center">
-                        <span class="w-2 h-2 bg-black rounded-full mr-3"></span>
-                        Kickboxing & Muay Thai
-                    </li>
-                    <li class="flex items-center">
-                        <span class="w-2 h-2 bg-black rounded-full mr-3"></span>
-                        Weightlifting & Running
-                    </li>
-                    <li class="flex items-center">
-                        <span class="w-2 h-2 bg-black rounded-full mr-3"></span>
-                        Tennis
-                    </li>
-                    <li class="flex items-center">
-                        <span class="w-2 h-2 bg-black rounded-full mr-3"></span>
-                        Healthcare Robotics
-                    </li>
-                    <li class="flex items-center">
-                        <span class="w-2 h-2 bg-black rounded-full mr-3"></span>
-                        3D Printing & Rapid Prototyping
-                    </li>
-                    <li class="flex items-center">
-                        <span class="w-2 h-2 bg-black rounded-full mr-3"></span>
-                        Bio-inspired Design
-                    </li>
-                    <li class="flex items-center">
-                        <span class="w-2 h-2 bg-black rounded-full mr-3"></span>
-                        Video Editing
-                    </li>
-                    <li class="flex items-center">
-                        <span class="w-2 h-2 bg-black rounded-full mr-3"></span>
-                        Content Creation
-                        <a href="https://www.youtube.com/@the.4th.perspective" target="_blank" class="ml-2 text-red-600 hover:text-red-700 transition-colors" title="View YouTube Channel">
-                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
-                            </svg>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-20 px-4 max-w-4xl mx-auto border-t border-gray-200 text-center">
-        <h3 class="text-3xl font-bold mb-6 tracking-tight">Let's Connect</h3>
-        <p class="text-lg text-gray-600 mb-8 leading-relaxed max-w-2xl mx-auto">
-            I am actively looking for co-op roles starting in Winter 2027 in Vancouver or across Canada. If you're building something that helps people move, heal, or live better, I'd love to chat.
-        </p>
-        <div class="flex justify-center flex-wrap gap-4">
-            <a href="mailto:khanvilkar.prem14@gmail.com" class="px-8 py-4 bg-black hover:bg-gray-800 text-white font-semibold rounded-lg transition-all">Email Me</a>
-            <a href="https://linkedin.com/in/premkhanvilkar14/" target="_blank" class="px-8 py-4 bg-white hover:bg-gray-50 text-black font-semibold rounded-lg transition-all border border-gray-300">Connect on LinkedIn</a>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-black py-8 text-center text-gray-400 text-sm">
-        <p>&copy; 2026 Prem Khanvilkar. All rights reserved.</p>
+    <footer class="bg-ink text-paper">
+        <div class="frame frame-dark flex flex-col md:flex-row md:justify-between gap-4 px-6 py-6 md:px-10 label">
+            <p style="color:#a1a1aa">&copy; 2026 Prem Khanvilkar. All rights reserved.</p>
+            <a href="#top" class="lnk self-start" style="color:#F9F9FB">Back to top ↑</a>
+        </div>
     </footer>
 
-    <!-- Interactive Scripts -->
     <script>
         function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            if (menu.classList.contains('hidden')) {
-                menu.classList.remove('hidden');
-                menu.classList.add('flex');
-            } else {
-                menu.classList.add('hidden');
-                menu.classList.remove('flex');
-            }
+            document.getElementById('mobile-menu').classList.toggle('hidden');
         }
 
-        function toggleAbout() {
-            const extendedText = document.getElementById('about-extended');
-            const btn = document.getElementById('about-toggle-btn');
-            
-            if (extendedText.classList.contains('hidden')) {
-                extendedText.classList.remove('hidden');
-                btn.innerHTML = 'Read Less <svg class="w-4 h-4 transition-transform duration-200 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>';
-            } else {
-                extendedText.classList.add('hidden');
-                btn.innerHTML = 'Read More <svg class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>';
-            }
+        // Image fallback: neutral ruled placeholder (no external service)
+        function fb(img) {
+            img.onerror = null;
+            var label = (img.alt || 'IMAGE').replace(/[<>&]/g, '');
+            img.src = 'data:image/svg+xml;utf8,' + encodeURIComponent(
+                '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">' +
+                '<rect width="400" height="300" fill="#E5E5E5"/>' +
+                '<path d="M0 0L400 300M400 0L0 300" stroke="#0F0F11" stroke-opacity=".2"/>' +
+                '<text x="200" y="154" font-family="monospace" font-size="12" text-anchor="middle" fill="#0F0F11" fill-opacity=".6">' + label + '</text></svg>'
+            );
         }
 
-        function toggleText(elementId, btn) {
-            const el = document.getElementById(elementId);
-            if (el.classList.contains('line-clamp-3')) {
-                // Expand text
-                el.classList.remove('line-clamp-3');
-                btn.innerText = 'Show Less';
-            } else {
-                // Collapse text
-                el.classList.add('line-clamp-3');
-                btn.innerText = 'Read More';
-            }
-        }
+        // Active nav item
+        (function () {
+            var links = Array.prototype.slice.call(document.querySelectorAll('[data-nav]'));
+            var ids = ['about', 'skills', 'experience', 'projects', 'awards', 'contact'];
+            if (!('IntersectionObserver' in window)) return;
+            var io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (e) {
+                    if (!e.isIntersecting) return;
+                    links.forEach(function (l) {
+                        l.setAttribute('aria-current', String(l.getAttribute('href') === '#' + e.target.id));
+                    });
+                });
+            }, { rootMargin: '-40% 0px -55% 0px' });
+            ids.forEach(function (id) {
+                var el = document.getElementById(id);
+                if (el) io.observe(el);
+            });
+        })();
     </script>
 </body>
 </html>
