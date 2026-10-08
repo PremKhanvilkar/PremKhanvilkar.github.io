@@ -15,10 +15,10 @@
     <!-- Favicon: ink square, paper square -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><rect width=%2232%22 height=%2232%22 fill=%22%230F0F11%22/><rect x=%226%22 y=%226%22 width=%2212%22 height=%2212%22 fill=%22%23F9F9FB%22/></svg>">
 
-    <!-- Fonts: Helvetica Neue / Arial (system) + IBM Plex Mono -->
+    <!-- Fonts: Space Grotesk (headings & labels) + Inter (write-up) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -28,8 +28,8 @@
                 extend: {
                     colors: { paper: '#F9F9FB', ink: '#0F0F11' },
                     fontFamily: {
-                        sans: ['"Helvetica Neue"', 'Helvetica', 'Arial', 'system-ui', 'sans-serif'],
-                        mono: ['"IBM Plex Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace']
+                        sans: ['Inter', '"Helvetica Neue"', 'Helvetica', 'Arial', 'system-ui', 'sans-serif'],
+                        head: ['"Space Grotesk"', '"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif']
                     },
                     borderColor: { DEFAULT: '#E5E5E5' },
                     borderRadius: { DEFAULT: '0px', sm: '2px', md: '0px', lg: '0px', xl: '0px', '2xl': '0px', full: '0px' }
@@ -39,7 +39,10 @@
     </script>
 
     <style>
-        :root { --ink:#0F0F11; --paper:#F9F9FB; --rule:#E5E5E5; }
+        :root { --ink:#0F0F11; --paper:#F9F9FB; --rule:#E5E5E5; --font-head:"Space Grotesk","Helvetica Neue",Helvetica,Arial,sans-serif; --font-body:"Inter","Helvetica Neue",Helvetica,Arial,system-ui,sans-serif; }
+        body { font-family: var(--font-body); }
+        h1, h2, h3, h4, .font-head { font-family: var(--font-head); }
+        .lnk-xl { font-family: var(--font-head); }
         html, body { background: var(--paper); color: var(--ink); }
         body { font-feature-settings: "tnum" 1; }
         ::selection { background: var(--ink); color: var(--paper); }
@@ -53,7 +56,7 @@
         }
 
         /* Type roles */
-        .label { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; line-height: 1.5; }
+        .label { font-family: var(--font-head); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; line-height: 1.5; }
         .mute { color: rgba(15,15,17,.62); }
         .body { color: rgba(15,15,17,.82); }
 
@@ -64,7 +67,7 @@
 
         /* Link: underline expands 0 -> 100% */
         .lnk {
-            font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+            font-family: var(--font-head); font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
             display: inline-block; padding-bottom: 3px; color: inherit;
             background:
                 linear-gradient(currentColor, currentColor) 0 100% / 100% 1px no-repeat;
@@ -78,7 +81,7 @@
         /* Buttons: hard edges */
         .btn {
             display: inline-flex; align-items: center; gap: .5rem; padding: .8rem 1.25rem;
-            border: 1px solid var(--ink); font-family: "IBM Plex Mono", ui-monospace, monospace;
+            border: 1px solid var(--ink); font-family: var(--font-head);
             font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink);
         }
         .btn-solid { background: var(--ink); color: var(--paper); }
@@ -86,19 +89,19 @@
         /* Nav */
         .navlink {
             display: flex; align-items: center; padding: 0 1rem; border-left: 1px solid var(--rule);
-            font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+            font-family: var(--font-head); font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
         }
         .navlink[aria-current="true"] { box-shadow: inset 0 -3px 0 var(--ink); }
         .mlink {
             display: block; padding: 1rem 1.5rem; border-bottom: 1px solid var(--rule);
-            font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; letter-spacing: .08em; text-transform: uppercase;
+            font-family: var(--font-head); font-size: 12px; letter-spacing: .08em; text-transform: uppercase;
         }
 
         /* Dash list (replaces disc bullets) */
         .dash { list-style: none; padding: 0; margin: 0; }
         .dash li { position: relative; padding-left: 1.25rem; }
         .dash li + li { margin-top: .5rem; }
-        .dash li::before { content: "\2014"; position: absolute; left: 0; font-family: "IBM Plex Mono", ui-monospace, monospace; }
+        .dash li::before { content: "\2014"; position: absolute; left: 0; font-family: var(--font-head); }
 
         /* Slash list for skills */
         .slash { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; row-gap: .25rem; }
@@ -122,8 +125,8 @@
         .strip > div { padding: 1rem 1.25rem; border-right: 1px solid var(--rule); min-width: 0; }
         .strip > div:nth-child(-n+2) { border-bottom: 1px solid var(--rule); }
         .strip > div:nth-child(2n) { border-right: 0; }
-        .strip .v { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 1.5rem; font-weight: 600; letter-spacing: -.02em; line-height: 1.1; }
-        .strip .k { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; line-height: 1.4; margin-top: .5rem; }
+        .strip .v { font-family: var(--font-head); font-size: 1.5rem; font-weight: 600; letter-spacing: -.02em; line-height: 1.1; }
+        .strip .k { font-family: var(--font-head); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; line-height: 1.4; margin-top: .5rem; }
         .strip .hl { box-shadow: inset 0 3px 0 var(--ink); }
         @media (min-width: 768px) {
             .strip { grid-template-columns: repeat(4, 1fr); }
@@ -132,6 +135,43 @@
             .strip > div:last-child { border-right: 0; }
         }
 
+        /* Section bands (clear divider headings) */
+        .band {
+            display: flex; align-items: center; gap: .75rem;
+            background: var(--ink); color: var(--paper);
+            font-family: var(--font-head); font-weight: 600; text-transform: uppercase; letter-spacing: .06em;
+            font-size: 14px; line-height: 1.2; padding: 1rem 1.5rem;
+        }
+        .band::before { content: ""; width: 8px; height: 8px; background: var(--paper); flex: none; }
+        .band-xl { font-size: clamp(1.125rem, 2vw, 1.5rem); padding: 1.5rem; }
+        .band-xl::before { width: 12px; height: 12px; }
+
+        /* Skill cards + chips */
+        .skillgrid { display: grid; grid-template-columns: 1fr; }
+        .skillgrid > div { padding: 1.5rem; border-bottom: 1px solid var(--rule); }
+        .skillgrid:last-child > div:last-child { border-bottom: 0; }
+        @media (min-width: 768px) {
+            .skillgrid { grid-template-columns: repeat(2, 1fr); }
+            .skillgrid > div:nth-child(odd):not(:last-child) { border-right: 1px solid var(--rule); }
+            .skillgrid > div:last-child:nth-child(odd) { grid-column: 1 / -1; }
+        }
+        .chips { list-style: none; padding: 0; margin: 1rem 0 0; display: flex; flex-wrap: wrap; gap: .5rem; }
+        .chips li { border: 1px solid var(--rule); background: #fff; padding: .35rem .65rem; font-size: 13px; line-height: 1.3; }
+
+        /* Hover-to-expand descriptions */
+        .xp { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .35s ease; }
+        .xp > .xp-in { overflow: hidden; min-height: 0; }
+        .xhover:hover .xp, .xhover:focus-within .xp { grid-template-rows: 1fr; }
+        .xp-hint { max-height: 1.5rem; overflow: hidden; opacity: .62; transition: max-height .3s ease, margin .3s ease, opacity .2s ease; }
+        .xp-hint.pt { margin-top: 1.25rem; }
+        .xhover:hover .xp-hint, .xhover:focus-within .xp-hint { max-height: 0; opacity: 0; }
+        .xhover:hover .xp-hint.pt, .xhover:focus-within .xp-hint.pt { margin-top: 0; }
+        @media (hover: none), (max-width: 767px) {
+            .xp { grid-template-rows: 1fr; }
+            .xp-hint { display: none; }
+        }
+        @media (prefers-reduced-motion: reduce) { .xp, .xp-hint { transition: none; } }
+
     </style>
 </head>
 <body class="font-sans antialiased text-base leading-normal">
@@ -139,7 +179,7 @@
     <!-- Navigation -->
     <nav class="sticky top-0 z-50 bg-paper border-b">
         <div class="frame relative flex items-stretch justify-between h-14">
-            <a href="#top" class="flex items-center px-6 font-bold text-lg tracking-[-0.04em] border-r">PK</a>
+            <a href="#top" class="flex items-center px-6 font-bold text-lg tracking-[-0.04em] border-r font-head">PK</a>
 
             <div class="hidden md:flex items-stretch ml-auto">
                 <a href="#about" data-nav class="navlink">About</a>
@@ -248,12 +288,16 @@
                     </figure>
                 </div>
 
-                <div class="border-t p-6 md:p-10 lg:columns-2 lg:gap-10 text-[15px] leading-relaxed body [&>p]:mb-5 [&>p:last-child]:mb-0">
+                <div id="about-more" class="hidden border-t p-6 md:p-10 lg:columns-2 lg:gap-10 text-[15px] leading-relaxed body [&>p]:mb-5 [&>p:last-child]:mb-0">
                     <p>Today, I work as an <strong>Electrical Subteam member at UBC Bionics.</strong> I was recently recruited to design Printed Circuit Boards (PCBs) for functional bionic arms built for International competitions, including Cybathlon.</p>
                     <p>Alongside that, I work as a <strong>Student Researcher</strong> with the <strong>UBC Biochemical Innovation Technology team (BIT)</strong>, exploring the effects of natural polyphenols like Quercetin on Type 2 Diabetes. I presented this research to nearly 400 attendees and adjudicators at conferences such as the Multidisciplinary Undergraduate Research Conference (MURC). I was also <strong>awarded</strong> a Certificate of Excellence for my work and contribution to the BIT team.</p>
                     <p>My technical work also extends into <strong>biosignal processing, biomechanics, and computational modelling</strong>. In MATLAB, I built the analysis pipelines for projects on grip strength and bicep curls, taking raw 2000 Hz EMG through band-pass and notch filtering, and used them to study the relationship between muscle activation and force. I have also analyzed jump-landing ground reaction forces and applied them to compare fracture fixation plate designs using finite-element analysis in SolidWorks.</p>
                     <p>Outside engineering, you can usually find me training and competing in Muay Thai, weightlifting, or producing engineering content for my YouTube channel, <strong>The Fourth Perspective.</strong></p>
                     <p>I am building my expertise in <strong>medical device lifecycle management</strong>, specifically focusing on hardware evaluation, design for manufacturing, and manufacturing scale-up. Long-term, I hope to design and build my own medical devices and prosthetics in healthcare robotics. I am also pursuing the research side of biomedical engineering, combining human-tissue experiments, computational modelling, and signal analysis.</p>
+                </div>
+
+                <div class="border-t px-6 md:px-10 py-4">
+                    <button id="about-toggle" type="button" onclick="toggleAbout()" aria-expanded="false" aria-controls="about-more" class="btn"><span id="about-toggle-label">Read more</span> <span id="about-toggle-icon">+</span></button>
                 </div>
             </div>
         </div>
@@ -270,89 +314,96 @@
             </div>
 
             <div class="md:col-span-9">
-                <p class="px-6 py-3 border-b label mute">Device &amp; Hardware</p>
-                <div class="grid md:grid-cols-12 border-b">
-                    <p class="md:col-span-3 label p-6 md:border-r">Electronics &amp; Embedded</p>
-                    <ul class="md:col-span-9 slash p-6 font-mono text-sm">
-                        <li>Circuit Design &amp; Analysis</li>
-                        <li>PCB Design (Altium / KiCad)</li>
-                        <li>Microcontrollers (Arduino)</li>
-                        <li>Microcontroller Programming</li>
-                        <li>Biomedical Sensor Integration</li>
-                        <li>Oscilloscope &amp; Breadboarding</li>
-                        <li>Prototyping &amp; Testing</li>
-                    </ul>
+                <p class="band">Device &amp; Hardware</p>
+                <div class="skillgrid">
+                    <div>
+                        <p class="label">Electronics &amp; Embedded</p>
+                        <ul class="chips">
+                            <li>Circuit Design &amp; Analysis</li>
+                            <li>PCB Design (Altium / KiCad)</li>
+                            <li>Microcontrollers (Arduino)</li>
+                            <li>Microcontroller Programming</li>
+                            <li>Biomedical Sensor Integration</li>
+                            <li>Oscilloscope &amp; Breadboarding</li>
+                            <li>Prototyping &amp; Testing</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p class="label">Mechanical Design &amp; Simulation</p>
+                        <ul class="chips">
+                            <li>SolidWorks (CAD)</li>
+                            <li>Static Finite-Element Analysis</li>
+                            <li>Stress &amp; Safety-Factor Evaluation</li>
+                            <li>Biomaterials Selection</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="grid md:grid-cols-12 border-b">
-                    <p class="md:col-span-3 label p-6 md:border-r">Mechanical Design &amp; Simulation</p>
-                    <ul class="md:col-span-9 slash p-6 font-mono text-sm">
-                        <li>SolidWorks (CAD)</li>
-                        <li>Static Finite-Element Analysis</li>
-                        <li>Stress &amp; Safety-Factor Evaluation</li>
-                        <li>Biomaterials Selection</li>
-                    </ul>
+                <p class="band">Research &amp; Lab</p>
+                <div class="skillgrid">
+                    <div>
+                        <p class="label">Wet Lab</p>
+                        <ul class="chips">
+                            <li>Islet Picking</li>
+                            <li>β-Cell Extraction (Primary Human Tissue)</li>
+                            <li>Serial Dilutions &amp; Media Preparation</li>
+                            <li>ELISA (Insulin Secretion)</li>
+                            <li>Biosafety / WHMIS / Chemical Safety</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p class="label">Computational Biology</p>
+                        <ul class="chips">
+                            <li>Molecular Docking (SwissDock)</li>
+                            <li>Protein Visualization (PyMOL)</li>
+                            <li>Structure Model Evaluation (PDB vs. AlphaFold)</li>
+                            <li>Sequence Alignment (BLAST)</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p class="label">Biosignals &amp; Biomechanics</p>
+                        <ul class="chips">
+                            <li>EMG &amp; Biosignal Processing</li>
+                            <li>BioRadio Systems</li>
+                            <li>Digital Filtering (Band-pass, Notch, Butterworth)</li>
+                            <li>FFT &amp; Spectral Analysis</li>
+                            <li>Linear Envelope &amp; Electromechanical Delay</li>
+                            <li>Marker-based &amp; Marker-less Motion Capture</li>
+                            <li>Force Measurement (Dynamometry, Ground Reaction Force)</li>
+                        </ul>
+                    </div>
                 </div>
-                <p class="px-6 py-3 border-b label mute">Research &amp; Lab</p>
-                <div class="grid md:grid-cols-12 border-b">
-                    <p class="md:col-span-3 label p-6 md:border-r">Wet Lab</p>
-                    <ul class="md:col-span-9 slash p-6 font-mono text-sm">
-                        <li>Islet Picking</li>
-                        <li>β-Cell Extraction (Primary Human Tissue)</li>
-                        <li>Serial Dilutions &amp; Media Preparation</li>
-                        <li>ELISA (Insulin Secretion)</li>
-                        <li>Biosafety / WHMIS / Chemical Safety</li>
-                    </ul>
-                </div>
-                <div class="grid md:grid-cols-12 border-b">
-                    <p class="md:col-span-3 label p-6 md:border-r">Computational Biology</p>
-                    <ul class="md:col-span-9 slash p-6 font-mono text-sm">
-                        <li>Molecular Docking (SwissDock)</li>
-                        <li>Protein Visualization (PyMOL)</li>
-                        <li>Structure Model Evaluation (PDB vs. AlphaFold)</li>
-                        <li>Sequence Alignment (BLAST)</li>
-                    </ul>
-                </div>
-                <div class="grid md:grid-cols-12 border-b">
-                    <p class="md:col-span-3 label p-6 md:border-r">Biosignals &amp; Biomechanics</p>
-                    <ul class="md:col-span-9 slash p-6 font-mono text-sm">
-                        <li>EMG &amp; Biosignal Processing</li>
-                        <li>BioRadio Systems</li>
-                        <li>Digital Filtering (Band-pass, Notch, Butterworth)</li>
-                        <li>FFT &amp; Spectral Analysis</li>
-                        <li>Linear Envelope &amp; Electromechanical Delay</li>
-                        <li>Marker-based &amp; Marker-less Motion Capture</li>
-                        <li>Force Measurement (Dynamometry, Ground Reaction Force)</li>
-                    </ul>
-                </div>
-                <div class="grid md:grid-cols-12 border-b">
-                    <p class="md:col-span-3 label p-6 md:border-r">Data &amp; Programming</p>
-                    <ul class="md:col-span-9 slash p-6 font-mono text-sm">
-                        <li>Python</li>
-                        <li>MATLAB</li>
-                        <li>R</li>
-                        <li>C &amp; C#</li>
-                        <li>GraphPad Prism</li>
-                        <li>Regression Modelling</li>
-                        <li>Data Analysis &amp; Visualization</li>
-                    </ul>
-                </div>
-                <div class="grid md:grid-cols-12 border-b">
-                    <p class="md:col-span-3 label p-6 md:border-r">Scientific Communication</p>
-                    <ul class="md:col-span-9 slash p-6 font-mono text-sm">
-                        <li>Research Paper Writing</li>
-                        <li>Literature Review</li>
-                        <li>Conference &amp; Poster Presentation (MURC)</li>
-                        <li>Weekly Research Presentations</li>
-                    </ul>
-                </div>
-                <div class="grid md:grid-cols-12">
-                    <p class="md:col-span-3 label p-6 md:border-r">Leadership &amp; Media</p>
-                    <ul class="md:col-span-9 slash p-6 font-mono text-sm">
-                        <li>Team Leadership (1000+ Students)</li>
-                        <li>Interviewing (50+)</li>
-                        <li>Policy &amp; Contract Drafting (MOUs, Codes of Conduct)</li>
-                        <li>Video Editing &amp; Content Production</li>
-                    </ul>
+                <p class="band">Data, Communication &amp; Leadership</p>
+                <div class="skillgrid">
+                    <div>
+                        <p class="label">Data &amp; Programming</p>
+                        <ul class="chips">
+                            <li>Python</li>
+                            <li>MATLAB</li>
+                            <li>R</li>
+                            <li>C &amp; C#</li>
+                            <li>GraphPad Prism</li>
+                            <li>Regression Modelling</li>
+                            <li>Data Analysis &amp; Visualization</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p class="label">Scientific Communication</p>
+                        <ul class="chips">
+                            <li>Research Paper Writing</li>
+                            <li>Literature Review</li>
+                            <li>Conference &amp; Poster Presentation (MURC)</li>
+                            <li>Weekly Research Presentations</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p class="label">Leadership &amp; Media</p>
+                        <ul class="chips">
+                            <li>Team Leadership (1000+ Students)</li>
+                            <li>Interviewing (50+)</li>
+                            <li>Policy &amp; Contract Drafting (MOUs, Codes of Conduct)</li>
+                            <li>Video Editing &amp; Content Production</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -360,18 +411,21 @@
 
     <!-- 03 Experience -->
     <section id="experience" class="border-b scroll-mt-[57px]">
-        <div class="frame grid md:grid-cols-12">
-            <div class="md:col-span-3 p-6 md:border-r">
-                <div class="md:sticky md:top-[72px]">
+        <div class="frame">
+            <div class="grid md:grid-cols-12 border-b">
+                <div class="md:col-span-3 p-6 md:border-r">
                     <p class="label mute">03</p>
                     <h2 class="mt-2 text-3xl font-bold tracking-[-0.03em]">Work Experience</h2>
                     <p class="label mute mt-6 flex items-center gap-2"><span class="sq"></span> = Ongoing</p>
                 </div>
+                <div class="md:col-span-9 band band-xl">Design Teams, Research &amp; Leadership</div>
             </div>
 
+            <div class="grid md:grid-cols-12">
+            <div class="md:col-span-3 md:border-r"></div>
             <div class="md:col-span-9">
                 <!-- UBC Bionics -->
-                <article class="grid md:grid-cols-12 border-b">
+                <article class="grid md:grid-cols-12 border-b xhover">
                     <div class="md:col-span-2 p-6 md:border-r">
                         <p class="label flex items-start gap-2"><span class="sq mt-[3px]"></span> Sep 2026 — Present</p>
                     </div>
@@ -380,15 +434,16 @@
                         <p class="label mute mt-2">UBC Bionics<br>Vancouver, Canada</p>
                     </div>
                     <div class="md:col-span-6 p-6">
-                        <ul class="dash text-sm leading-relaxed body">
+                        <p class="label mute xp-hint">Hover to read more +</p>
+                        <div class="xp"><div class="xp-in"><ul class="dash text-sm leading-relaxed body">
                             <li>Selected for the electrical subteam to assist in the design, prototyping, and testing of circuitry for bionic prosthetics.</li>
                             <li>Collaborating on printed circuit board (PCB) design, microcontroller programming, and biomedical sensor integration for international Cybathlon competitions.</li>
-                        </ul>
+                        </ul></div></div>
                     </div>
                 </article>
 
                 <!-- BIT -->
-                <article class="grid md:grid-cols-12 border-b">
+                <article class="grid md:grid-cols-12 border-b xhover">
                     <div class="md:col-span-2 p-6 md:border-r">
                         <p class="label flex items-start gap-2"><span class="sq mt-[3px]"></span> Oct 2025 — Present</p>
                     </div>
@@ -397,17 +452,18 @@
                         <p class="label mute mt-2">Biochemical Innovation Technology<br>Vancouver, Canada</p>
                     </div>
                     <div class="md:col-span-6 p-6">
-                        <ul class="dash text-sm leading-relaxed body">
+                        <p class="label mute xp-hint">Hover to read more +</p>
+                        <div class="xp"><div class="xp-in"><ul class="dash text-sm leading-relaxed body">
                             <li>Shadowed islet picking and β-cell extraction from primary human tissues; prepared experimental media using serial dilutions.</li>
                             <li>Quantified insulin secretion using ELISA assays; generated and interpreted data using GraphPad Prism.</li>
                             <li>Presented research findings during weekly meetings and at the Multidisciplinary Undergraduate Research Conference (MURC).</li>
-                        </ul>
+                        </ul></div></div>
                         <p class="mt-5"><a href="Certificate_excellence_BESTBIT.jpeg" target="_blank" rel="noopener" class="lnk">View Certificate of Excellence · IMG ↗</a></p>
                     </div>
                 </article>
 
                 <!-- The Fourth Perspective -->
-                <article class="grid md:grid-cols-12 border-b">
+                <article class="grid md:grid-cols-12 border-b xhover">
                     <div class="md:col-span-2 p-6 md:border-r">
                         <p class="label flex items-start gap-2"><span class="sq mt-[3px]"></span> Mar 2025 — Present</p>
                     </div>
@@ -416,16 +472,17 @@
                         <p class="label mute mt-2">The Fourth Perspective (YouTube Channel)<br>Remote</p>
                     </div>
                     <div class="md:col-span-6 p-6">
-                        <ul class="dash text-sm leading-relaxed body">
+                        <p class="label mute xp-hint">Hover to read more +</p>
+                        <div class="xp"><div class="xp-in"><ul class="dash text-sm leading-relaxed body">
                             <li>Scaled channel to near 9,000 subscribers and 200,000+ views in under 4 weeks.</li>
                             <li>Produced content focusing on Engineering Lifestyle and international university application guidance.</li>
-                        </ul>
+                        </ul></div></div>
                         <p class="mt-5"><a href="https://www.youtube.com/@the.4th.perspective" target="_blank" rel="noopener" class="lnk">Visit YouTube Channel ↗</a></p>
                     </div>
                 </article>
 
                 <!-- Bifrost -->
-                <article class="grid md:grid-cols-12">
+                <article class="grid md:grid-cols-12 xhover">
                     <div class="md:col-span-2 p-6 md:border-r">
                         <p class="label">Mar 2023 — Nov 2023</p>
                     </div>
@@ -434,14 +491,16 @@
                         <p class="label mute mt-2">Bifrost EdTech<br>Delhi, India</p>
                     </div>
                     <div class="md:col-span-6 p-6">
-                        <ul class="dash text-sm leading-relaxed body">
+                        <p class="label mute xp-hint">Hover to read more +</p>
+                        <div class="xp"><div class="xp-in"><ul class="dash text-sm leading-relaxed body">
                             <li>Led a professional HR team overseeing 1000+ students across departments with zero reported grievances.</li>
                             <li>Drafted Memorandums of Understanding, Codes of Conduct, and Offer Letters.</li>
                             <li>Conducted 50+ interviews and distributed certificates for over 250 students.</li>
-                        </ul>
+                        </ul></div></div>
                         <p class="mt-5"><a href="Letter of Recommendations - Prem Khanvilkar.pdf" target="_blank" rel="noopener" class="lnk">View Letter of Recommendation · PDF ↗</a></p>
                     </div>
                 </article>
+            </div>
             </div>
         </div>
     </section>
@@ -454,9 +513,7 @@
                     <p class="label mute">04</p>
                     <h2 class="mt-2 text-3xl font-bold tracking-[-0.03em]">Projects</h2>
                 </div>
-                <div class="md:col-span-9 p-6 flex items-end">
-                    <p class="label mute">Research &amp; Technical Projects</p>
-                </div>
+                <div class="md:col-span-9 band band-xl">Research &amp; Technical Projects</div>
             </div>
 
             <!-- P-01 MURC -->
@@ -494,7 +551,7 @@
             </article>
 
             <!-- P-02 Docking -->
-            <article class="border-b">
+            <article class="border-b xhover">
                 <div class="grid md:grid-cols-12">
                     <div class="md:col-span-3 p-6 md:border-r flex flex-col gap-3">
                         <p class="label">Research · Computational</p>
@@ -506,7 +563,8 @@
                         <div class="grid lg:grid-cols-9">
                             <div class="lg:col-span-5 p-6 md:p-8 lg:border-r">
                                 <h3 class="text-2xl font-bold tracking-[-0.02em] leading-tight">Targeting Human SAH Hydrolase (AHCY) to Suppress MERS-CoV Replication</h3>
-                                <p class="mt-5 text-[15px] leading-relaxed body">A Structure-Based Docking Study evaluating human SAH hydrolase (AHCY) as a target to suppress MERS-CoV RNA capping using six 6'-fluorinated aristeromycin analogues. Justified the use of the 2.01 Å crystal structure 1LI4 over low-confidence AlphaFold models. Executed molecular docking via SwissDock, predicting that active compounds occupied the substrate pocket alongside NADH, with 6',6'-difluoroaristeromycin emerging as the strongest candidate. Critically analyzed divergences between rigid-receptor docking predictions and experimental IC50 values.</p>
+                                <p class="label mute xp-hint pt">Hover to read more +</p>
+                                <div class="xp"><div class="xp-in"><p class="mt-5 text-[15px] leading-relaxed body">A Structure-Based Docking Study evaluating human SAH hydrolase (AHCY) as a target to suppress MERS-CoV RNA capping using six 6'-fluorinated aristeromycin analogues. Justified the use of the 2.01 Å crystal structure 1LI4 over low-confidence AlphaFold models. Executed molecular docking via SwissDock, predicting that active compounds occupied the substrate pocket alongside NADH, with 6',6'-difluoroaristeromycin emerging as the strongest candidate. Critically analyzed divergences between rigid-receptor docking predictions and experimental IC50 values.</p></div></div>
                                 <p class="mt-6"><a href="AHCY_MERS-CoV_Docking_Study_Khanvilkar.pdf" target="_blank" rel="noopener" class="lnk">View Paper · PDF ↗</a></p>
                             </div>
                             <figure class="lg:col-span-4 p-6 md:p-8 border-t lg:border-t-0">
@@ -526,7 +584,7 @@
             </article>
 
             <!-- P-03 EMG Bicep -->
-            <article class="border-b">
+            <article class="border-b xhover">
                 <div class="grid md:grid-cols-12">
                     <div class="md:col-span-3 p-6 md:border-r flex flex-col gap-3">
                         <p class="label">Research · Biosignals</p>
@@ -538,7 +596,8 @@
                         <div class="grid lg:grid-cols-9">
                             <div class="lg:col-span-5 p-6 md:p-8 lg:border-r">
                                 <h3 class="text-2xl font-bold tracking-[-0.02em] leading-tight">EMG Analysis of Bicep Curls at Different Angles</h3>
-                                <p class="mt-5 text-[15px] leading-relaxed body">Investigated how changes in shoulder and trunk angle influence biceps brachii activation during dumbbell biceps curls. Measured surface electromyography at zero, 45, and 50-degree orientations, revealing the 50-degree condition produced the highest peak and RMS values.</p>
+                                <p class="label mute xp-hint pt">Hover to read more +</p>
+                                <div class="xp"><div class="xp-in"><p class="mt-5 text-[15px] leading-relaxed body">Investigated how changes in shoulder and trunk angle influence biceps brachii activation during dumbbell biceps curls. Measured surface electromyography at zero, 45, and 50-degree orientations, revealing the 50-degree condition produced the highest peak and RMS values.</p></div></div>
                                 <p class="mt-6"><a href="EMG Analysis of Bicep Curls at Different Angles.pdf" target="_blank" rel="noopener" class="lnk">View Paper · PDF ↗</a></p>
                             </div>
                             <figure class="lg:col-span-4 p-6 md:p-8 border-t lg:border-t-0">
@@ -558,7 +617,7 @@
             </article>
 
             <!-- P-04 FEA -->
-            <article class="border-b">
+            <article class="border-b xhover">
                 <div class="grid md:grid-cols-12">
                     <div class="md:col-span-3 p-6 md:border-r flex flex-col gap-3">
                         <p class="label">Device · Design &amp; Simulation</p>
@@ -570,7 +629,8 @@
                         <div class="grid lg:grid-cols-9">
                             <div class="lg:col-span-5 p-6 md:p-8 lg:border-r">
                                 <h3 class="text-2xl font-bold tracking-[-0.02em] leading-tight">Orthopaedic Fracture Fixation Plate FEA</h3>
-                                <p class="mt-5 text-[15px] leading-relaxed body">Combined ground reaction force data (1536.6 N applied peak physiological load) from a deep-squat jump landing with SolidWorks static finite-element simulations to compare fixation plate designs. Evaluated Ti-6Al-4V against alloy steel and 1060 aluminium alloy. Demonstrated that the Ti-6Al-4V design with two 5mm holes achieved the lowest max von Mises stress (0.7233 MPa) and optimal safety factor.</p>
+                                <p class="label mute xp-hint pt">Hover to read more +</p>
+                                <div class="xp"><div class="xp-in"><p class="mt-5 text-[15px] leading-relaxed body">Combined ground reaction force data (1536.6 N applied peak physiological load) from a deep-squat jump landing with SolidWorks static finite-element simulations to compare fixation plate designs. Evaluated Ti-6Al-4V against alloy steel and 1060 aluminium alloy. Demonstrated that the Ti-6Al-4V design with two 5mm holes achieved the lowest max von Mises stress (0.7233 MPa) and optimal safety factor.</p></div></div>
                                 <p class="mt-6"><a href="Design and Finite-Element Comparison of Orthopedic Fracture Fixation Plates Under Jump-Landing Loads.pdf" target="_blank" rel="noopener" class="lnk">View Paper · PDF ↗</a></p>
                             </div>
                             <figure class="lg:col-span-4 p-6 md:p-8 border-t lg:border-t-0">
@@ -590,7 +650,7 @@
             </article>
 
             <!-- P-05 Grip -->
-            <article class="border-b">
+            <article class="border-b xhover">
                 <div class="grid md:grid-cols-12">
                     <div class="md:col-span-3 p-6 md:border-r flex flex-col gap-3">
                         <p class="label">Research · Biosignals</p>
@@ -602,7 +662,8 @@
                         <div class="grid lg:grid-cols-9">
                             <div class="lg:col-span-5 p-6 md:p-8 lg:border-r">
                                 <h3 class="text-2xl font-bold tracking-[-0.02em] leading-tight">Grip Strength &amp; EMG Force Correlation</h3>
-                                <p class="mt-5 text-[15px] leading-relaxed body">Recorded surface EMG and hand dynamometer force data simultaneously at 2000 Hz during isometric handgrip contractions. Processed signals in MATLAB through a custom filter pipeline (band-pass, notch, rectification, low-pass) to obtain linear envelopes. Calculated electromechanical delays (0.295s left, 0.378s right) and modelled the linear relationship between EMG amplitude and isometric force.</p>
+                                <p class="label mute xp-hint pt">Hover to read more +</p>
+                                <div class="xp"><div class="xp-in"><p class="mt-5 text-[15px] leading-relaxed body">Recorded surface EMG and hand dynamometer force data simultaneously at 2000 Hz during isometric handgrip contractions. Processed signals in MATLAB through a custom filter pipeline (band-pass, notch, rectification, low-pass) to obtain linear envelopes. Calculated electromechanical delays (0.295s left, 0.378s right) and modelled the linear relationship between EMG amplitude and isometric force.</p></div></div>
                                 <p class="mt-6"><a href="Relationship Between Surface EMG Amplitude and Isometric Grip Force in the Dominant and Non-Dominant Forearm.pdf" target="_blank" rel="noopener" class="lnk">View Paper · PDF ↗</a></p>
                             </div>
                             <figure class="lg:col-span-4 p-6 md:p-8 border-t lg:border-t-0">
@@ -622,7 +683,7 @@
             </article>
 
             <!-- P-06 Kinematics -->
-            <article class="border-b">
+            <article class="border-b xhover">
                 <div class="grid md:grid-cols-12">
                     <div class="md:col-span-3 p-6 md:border-r flex flex-col gap-3">
                         <p class="label">Research · Biomechanics</p>
@@ -634,7 +695,8 @@
                         <div class="grid lg:grid-cols-9">
                             <div class="lg:col-span-5 p-6 md:p-8 lg:border-r">
                                 <h3 class="text-2xl font-bold tracking-[-0.02em] leading-tight">Kinematic Motion Capture Analysis</h3>
-                                <p class="mt-5 text-[15px] leading-relaxed body">Captured elbow and wrist kinematics during a drinking task to compare marker-based optical tracking and marker-less depth-sensor systems (Nuitrack). Applied FFT analysis and a 1.5 Hz Butterworth low-pass filter to smooth data, calculating angular and tangential velocities. Identified a 12-16% kinematic difference between left and right arms during the task.</p>
+                                <p class="label mute xp-hint pt">Hover to read more +</p>
+                                <div class="xp"><div class="xp-in"><p class="mt-5 text-[15px] leading-relaxed body">Captured elbow and wrist kinematics during a drinking task to compare marker-based optical tracking and marker-less depth-sensor systems (Nuitrack). Applied FFT analysis and a 1.5 Hz Butterworth low-pass filter to smooth data, calculating angular and tangential velocities. Identified a 12-16% kinematic difference between left and right arms during the task.</p></div></div>
                                 <p class="mt-6"><a href="Marker-Based and Marker-Less Motion Capture for Measuring Elbow Kinematics During a Drinking Task.pdf" target="_blank" rel="noopener" class="lnk">View Paper · PDF ↗</a></p>
                             </div>
                             <figure class="lg:col-span-4 p-6 md:p-8 border-t lg:border-t-0">
@@ -654,7 +716,7 @@
             </article>
 
             <!-- P-07 Quercetin review -->
-            <article>
+            <article class="xhover">
                 <div class="grid md:grid-cols-12">
                     <div class="md:col-span-3 p-6 md:border-r flex flex-col gap-3">
                         <p class="label">Research · Literature Review</p>
@@ -666,7 +728,8 @@
                         <div class="grid lg:grid-cols-9">
                             <div class="lg:col-span-5 p-6 md:p-8 lg:border-r">
                                 <h3 class="text-2xl font-bold tracking-[-0.02em] leading-tight">Entrapment Strategies to Enhance Quercetin Bioavailability</h3>
-                                <p class="mt-5 text-[15px] leading-relaxed body">A comprehensive literature review analyzing four carrier strategies—emulsions, hydrogels, liposomes, and polymeric micelles—to improve the aqueous solubility and absorption of quercetin for Type 2 Diabetes adjunct therapy. Highlighted that polymeric micelles showed the most promising pharmacokinetic gains (up to 360% bioavailability increase) and options for active cellular targeting.</p>
+                                <p class="label mute xp-hint pt">Hover to read more +</p>
+                                <div class="xp"><div class="xp-in"><p class="mt-5 text-[15px] leading-relaxed body">A comprehensive literature review analyzing four carrier strategies—emulsions, hydrogels, liposomes, and polymeric micelles—to improve the aqueous solubility and absorption of quercetin for Type 2 Diabetes adjunct therapy. Highlighted that polymeric micelles showed the most promising pharmacokinetic gains (up to 360% bioavailability increase) and options for active cellular targeting.</p></div></div>
                                 <p class="mt-6"><a href="quercetin-literature-review.pdf" target="_blank" rel="noopener" class="lnk">View Paper · PDF ↗</a></p>
                             </div>
                             <figure class="lg:col-span-4 p-6 md:p-8 border-t lg:border-t-0">
@@ -840,6 +903,16 @@
     </footer>
 
     <script>
+        function toggleAbout() {
+            var more = document.getElementById('about-more');
+            var btn = document.getElementById('about-toggle');
+            var open = more.classList.toggle('hidden') === false;
+            btn.setAttribute('aria-expanded', String(open));
+            document.getElementById('about-toggle-label').textContent = open ? 'Read less' : 'Read more';
+            document.getElementById('about-toggle-icon').textContent = open ? '\u2212' : '+';
+            if (!open) document.getElementById('about').scrollIntoView({ block: 'start' });
+        }
+
         function toggleMobileMenu() {
             document.getElementById('mobile-menu').classList.toggle('hidden');
         }
